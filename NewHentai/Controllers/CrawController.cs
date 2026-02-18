@@ -1267,4 +1267,109 @@ namespace NewHentai.Controllers
 
     }
 
+    public class PIC_INFO
+    {
+        public bool success = false;
+        public string threadUrl = "";
+        public string picNo = "";
+        public string picFileName = "";
+        public string picUrl = "";
+        public Stream picStream = null;
+        public Image picImage = null;
+        public string picImgUrl = "";
+
+    }
+
+    public class THREAD_INFO
+    {
+        public string page_url = "";
+        public string thread_url = "";
+        public bool exhentai = false;
+
+        public THREAD_INFO(string threadUrl)
+        {
+            this.thread_url = threadUrl;
+
+        }
+
+    }
+
+
+    public class SITE_INFO
+    {
+        public string host = "";
+        public string param = "";
+
+        public string site_url = "";
+        public int page_info_count = 0;
+
+        public SITE_INFO(string site)
+        {
+            this.site_url = site;
+
+            Uri u = new Uri(site);
+            this.host = u.Host;
+            //this.param = u.Query.Substring(1);
+
+
+        }
+
+    }
+
+
+    public class PAGE_INFO
+    {
+        public string page_url;
+        public string site_url;
+        public int page_threadCount = 0;
+
+        public PAGE_INFO(string pageUrl)
+        {
+            this.page_url = pageUrl;
+
+        }
+
+    }
+
+    public class BOOK_INFO
+    {
+        public string pageUrl = "";
+        public string threadUrl = "";
+        public string type;
+        public string upload_time;
+        public string posted_time;
+        public string pic;
+        public string eng_title;
+        public string uni_title;
+        public decimal total_page;
+        public string p_key;
+        public string s_key;
+        public string language;
+        public decimal rate_time;
+        public decimal rate_avg;
+        public decimal tab_count;
+        public Stream pic_Stream;
+
+        //public BOOK_TYPE typeObj = null;
+
+        public BOOK_INFO()
+        {
+
+        }
+
+        public BOOK_INFO(string thread)
+        {
+            this.threadUrl = thread;
+        }
+
+        public BOOK_INFO(string thread, string pKey, string sKey)
+        {
+            this.threadUrl = thread;
+            this.p_key = pKey;
+            this.s_key = sKey;
+
+        }
+
+    }
+
 }

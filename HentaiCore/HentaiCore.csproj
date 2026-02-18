@@ -109,11 +109,6 @@
     <Compile Include="BASE\Logger.cs" />
     <Compile Include="BASE\DataControl.cs" />
     <Compile Include="BASE\FileDirector.cs" />
-    <Compile Include="OBJECT\BOOK_INFO.cs" />
-    <Compile Include="OBJECT\PAGE_INFO.cs" />
-    <Compile Include="OBJECT\PIC_INFO.cs" />
-    <Compile Include="OBJECT\SITE_INFO.cs" />
-    <Compile Include="OBJECT\THREAD_INFO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -145,6 +140,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Magick.NET-Q16-AnyCPU.14.6.0\build\netstandard20\Magick.NET-Q16-AnyCPU.targets" Condition="Exists('..\packages\Magick.NET-Q16-AnyCPU.14.6.0\build\netstandard20\Magick.NET-Q16-AnyCPU.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
