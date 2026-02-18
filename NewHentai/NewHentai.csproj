@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A73815AE-98C8-4781-8354-C3F4743F05A2}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NewHentai</RootNamespace>
+    <AssemblyName>NewHentai</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>embedded</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="LineBot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LineBotSDK.2.2.26\lib\net45\LineBot.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET-Q16-AnyCPU, Version=14.6.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET-Q16-AnyCPU.14.6.0\lib\netstandard20\Magick.NET-Q16-AnyCPU.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET.Core, Version=14.6.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET.Core.14.6.0\lib\netstandard20\Magick.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Magick.NET.SystemDrawing, Version=8.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Magick.NET.SystemDrawing.8.0.6\lib\netstandard20\Magick.NET.SystemDrawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telegram.Bot, Version=15.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telegram.Bot.15.7.1\lib\net45\Telegram.Bot.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
+      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminController\Group.cs" />
+    <Compile Include="Controllers\AdminController\Index.cs" />
+    <Compile Include="Controllers\AdminController\Melon_Group.cs" />
+    <Compile Include="Controllers\AdminController\Refresh.cs" />
+    <Compile Include="Controllers\AdminController\Summary.cs" />
+    <Compile Include="Controllers\BrowseController.cs" />
+    <Compile Include="Controllers\BrowseController\MapMelonBook.cs" />
+    <Compile Include="Controllers\BrowseController\MapMelonBookPage.cs" />
+    <Compile Include="Controllers\BrowseController\MelonBook.cs" />
+    <Compile Include="Controllers\BrowseController\MelonBookDetail.cs" />
+    <Compile Include="Controllers\BrowseController\MelonBookPage.cs" />
+    <Compile Include="Controllers\BrowseController\MelonBookTag.cs" />
+    <Compile Include="Controllers\BrowseController\MelonBookTagPage.cs" />
+    <Compile Include="Controllers\BrowseController\MelonBookTagRank.cs" />
+    <Compile Include="Controllers\BrowseController\Page.cs" />
+    <Compile Include="Controllers\BrowseController\Display.cs" />
+    <Compile Include="Controllers\BrowseController\View.cs" />
+    <Compile Include="Controllers\BrowseController\DisplayPage.cs" />
+    <Compile Include="Controllers\BrowseController\ViewPage.cs" />
+    <Compile Include="Controllers\CrawController.cs" />
+    <Compile Include="Controllers\CrawController\CrawDoujinshiController.cs" />
+    <Compile Include="Controllers\CrawController\CrawFeatureController.cs" />
+    <Compile Include="Controllers\CrawController\CrawMangaController.cs" />
+    <Compile Include="Controllers\CrawController\CrawMelonBookController.cs" />
+    <Compile Include="Controllers\CrawController\CrawNonHController.cs" />
+    <Compile Include="Controllers\GalleryController.cs" />
+    <Compile Include="Controllers\GalleryController\Data.cs" />
+    <Compile Include="Controllers\GalleryController\Image.cs" />
+    <Compile Include="Controllers\GalleryController\Page.cs" />
+    <Compile Include="Controllers\GalleryController\Preview.cs" />
+    <Compile Include="Controllers\GalleryController\Query.cs" />
+    <Compile Include="Controllers\GalleryController\Table.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShowController.cs" />
+    <Compile Include="Controllers\ShowController\Display.cs" />
+    <Compile Include="Controllers\ShowController\DisplayPage.cs" />
+    <Compile Include="Controllers\ShowController\MapMelonBook.cs" />
+    <Compile Include="Controllers\ShowController\MapMelonBookPage.cs" />
+    <Compile Include="Controllers\ShowController\MelonBook.cs" />
+    <Compile Include="Controllers\ShowController\MelonBookDetail.cs" />
+    <Compile Include="Controllers\ShowController\MelonBookPage.cs" />
+    <Compile Include="Controllers\ShowController\MelonBookTag.cs" />
+    <Compile Include="Controllers\ShowController\MelonBookTagPage.cs" />
+    <Compile Include="Controllers\ShowController\MelonBookTagRank.cs" />
+    <Compile Include="Controllers\ShowController\Page.cs" />
+    <Compile Include="Controllers\ShowController\View.cs" />
+    <Compile Include="Controllers\ShowController\ViewPage.cs" />
+    <Compile Include="Controllers\TelegramController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Lib\HtmlAgilityPack.dll" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_GALLERY.cshtml" />
+    <Content Include="Views\Craw\Index.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_GALLERY_DETAIL.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_API_DETAIL.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_PIC_DETAIL.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_PIC.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_DATA_DETAIL.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_DATAALL_DETAIL.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_FAST_PIC.cshtml" />
+    <Content Include="Views\Gallery\Index.cshtml" />
+    <Content Include="Views\Gallery\Table.cshtml" />
+    <Content Include="Views\Gallery\Query.cshtml" />
+    <Content Include="Views\CrawManga\Index.cshtml" />
+    <Content Include="Views\CrawManga\GET_EXHENTAI_GALLERY_DETAIL.cshtml" />
+    <Content Include="Views\CrawManga\GET_EXHENTAI_API_DETAIL.cshtml" />
+    <Content Include="Views\CrawManga\GET_EXHENTAI_DATA_DETAIL.cshtml" />
+    <Content Include="Views\CrawManga\GET_EXHENTAI_DATAALL_DETAIL.cshtml" />
+    <Content Include="Views\CrawDoujinshi\GET_EXHENTAI_GALLERY.cshtml" />
+    <Content Include="Views\CrawDoujinshi\GET_EXHENTAI_GALLERY_DETAIL.cshtml" />
+    <Content Include="Views\CrawDoujinshi\GET_EXHENTAI_API_DETAIL.cshtml" />
+    <Content Include="Views\CrawDoujinshi\GET_EXHENTAI_DATA_DETAIL.cshtml" />
+    <Content Include="Views\CrawDoujinshi\GET_EXHENTAI_DATAALL_DETAIL.cshtml" />
+    <Content Include="Views\CrawManga\GET_EXHENTAI_GALLERY.cshtml" />
+    <Content Include="Views\Gallery\Page.cshtml" />
+    <Content Include="Views\Gallery\Data.cshtml" />
+    <Content Include="Views\Gallery\Preview.cshtml" />
+    <Content Include="Views\Craw\SET_EXHENTAI_DATA_ERROR_CODE.cshtml" />
+    <Content Include="Views\Gallery\Image.cshtml" />
+    <Content Include="Views\Browse\Page.cshtml" />
+    <Content Include="Views\Browse\Index.cshtml" />
+    <Content Include="Views\Craw\GET_EXHENTAI_PIC2.cshtml" />
+    <Content Include="Views\Craw\DOWNLOAD_EXHENTAI_PIC.cshtml" />
+    <Content Include="Views\Browse\View.cshtml" />
+    <Content Include="Views\Browse\ViewPage.cshtml" />
+    <Content Include="Views\Craw\RESET_EXHENTAI_DATA_ERROR_CODE.cshtml" />
+    <Content Include="Views\CrawMelonBook\Index.cshtml" />
+    <Content Include="Views\CrawMelonBook\GET_ITEM_DATA.cshtml" />
+    <Content Include="Views\CrawMelonBook\MAP_ITEM_DATA.cshtml" />
+    <Content Include="Views\Browse\MelonBook.cshtml" />
+    <Content Include="Views\Browse\MelonBookPage.cshtml" />
+    <Content Include="Views\Admin\Summary.cshtml" />
+    <Content Include="Views\Admin\Group.cshtml" />
+    <Content Include="Views\Telegram\Index.cshtml" />
+    <Content Include="Views\Telegram\Talk.cshtml" />
+    <Content Include="Views\CrawMelonBook\MAP_ITEM_DATA2.cshtml" />
+    <Content Include="Views\Gallery\ReImage.cshtml" />
+    <Content Include="Views\Admin\Melon_Group.cshtml" />
+    <Content Include="Views\Craw\CRAW_EXHENTAI_PIC.cshtml" />
+    <Content Include="Views\Craw\CRAW_EXHENTAIDEEP_PIC.cshtml" />
+    <Content Include="Views\CrawNonH\Index.cshtml" />
+    <Content Include="Views\CrawNonH\GET_EXHENTAI_GALLERY.cshtml" />
+    <Content Include="Views\CrawNonH\GET_EXHENTAI_GALLERY_DETAIL.cshtml" />
+    <Content Include="Views\CrawNonH\GET_EXHENTAI_API_DETAIL.cshtml" />
+    <Content Include="Views\CrawNonH\GET_EXHENTAI_DATA_DETAIL.cshtml" />
+    <Content Include="Views\CrawNonH\GET_EXHENTAI_DATAALL_DETAIL.cshtml" />
+    <Content Include="Views\Craw\RESET_EXHENTAI_DATA_PAGE.cshtml" />
+    <Content Include="Views\Craw\RESET_EXHENTAI_DATA_MAXKEY.cshtml" />
+    <Content Include="Views\Admin\Refresh.cshtml" />
+    <Content Include="Views\CrawFeature\Index.cshtml" />
+    <Content Include="Views\CrawFeature\GET_FEATURE.cshtml" />
+    <Content Include="Views\Browse\Display.cshtml" />
+    <Content Include="Views\Browse\DisplayPage.cshtml" />
+    <Content Include="Views\Browse\MelonBookDetail.cshtml" />
+    <Content Include="Views\Browse\MapMelonBook.cshtml" />
+    <Content Include="Views\Browse\MapMelonBookPage.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Show\Display.cshtml" />
+    <Content Include="Views\Show\DisplayPage.cshtml" />
+    <Content Include="Views\Show\Index.cshtml" />
+    <Content Include="Views\Show\MapMelonBook.cshtml" />
+    <Content Include="Views\Show\MapMelonBookPage.cshtml" />
+    <Content Include="Views\Show\MelonBook.cshtml" />
+    <Content Include="Views\Show\MelonBookDetail.cshtml" />
+    <Content Include="Views\Show\MelonBookPage.cshtml" />
+    <Content Include="Views\Show\Page.cshtml" />
+    <Content Include="Views\Show\View.cshtml" />
+    <Content Include="Views\Show\ViewPage.cshtml" />
+    <Content Include="Views\Browse\MelonBookTagPage.cshtml" />
+    <Content Include="Views\Browse\MelonBookTag.cshtml" />
+    <Content Include="Views\Browse\MelonBookTagRank.cshtml" />
+    <Content Include="Views\Browse\MelonBookTagRankReady.cshtml" />
+    <Content Include="Views\Show\MelonBookTagRank.cshtml" />
+    <Content Include="Views\Show\MelonBookTagRankReady.cshtml" />
+    <Content Include="Views\Show\MelonBookTag.cshtml" />
+    <Content Include="Views\Show\MelonBookTagPage.cshtml" />
+    <Content Include="Views\CrawManga\GET_EXHENTAI_HIDDEN_GALLERY_DETAIL.cshtml" />
+    <Content Include="Views\CrawNonH\GET_EXHENTAI_HIDDEN_GALLERY_DETAIL.cshtml" />
+    <Content Include="Views\CrawDoujinshi\GET_EXHENTAI_HIDDEN_GALLERY_DETAIL.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HentaiCore\HentaiCore.csproj">
+      <Project>{99449743-eae3-463a-8cb4-208f98ef6600}</Project>
+      <Name>HentaiCore</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62067</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:62067/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Magick.NET-Q16-AnyCPU.14.6.0\build\netstandard20\Magick.NET-Q16-AnyCPU.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Magick.NET-Q16-AnyCPU.14.6.0\build\netstandard20\Magick.NET-Q16-AnyCPU.targets'))" />
+  </Target>
+  <Import Project="..\packages\Magick.NET-Q16-AnyCPU.14.6.0\build\netstandard20\Magick.NET-Q16-AnyCPU.targets" Condition="Exists('..\packages\Magick.NET-Q16-AnyCPU.14.6.0\build\netstandard20\Magick.NET-Q16-AnyCPU.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,106 @@
+﻿@using System.Data
+
+<div class="article">
+    <table border="1" width="100%">
+        @{
+            DataTable data = ViewData["DATA"] as DataTable;
+            for (int i = 0; i < data.Rows.Count; i += 2)
+            {
+                DataRow row1 = null;
+                DataRow row2 = null;
+                if (i + 0 < data.Rows.Count)
+                {
+                    row1 = data.Rows[i + 0];
+
+                }
+                if (i + 1 < data.Rows.Count)
+                {
+                    row2 = data.Rows[i + 1];
+
+                }
+
+                <tr>
+                    @{
+                        if (row1 != null)
+                        {
+                            <td width="50%">
+                                <p align="center">
+                                    <a href="../../../../../../Gallery/PREVIEW/@row1["PKEY"].ToString()_@row1["SKEY"].ToString()"
+                                       target="_parent">
+                                        <img loading="lazy" src='@row1["PIC_DISPLAY"].ToString()' width="75%"
+                                             title="@row1["NAME_DISPLAY"].ToString()" />
+                                    </a>
+                                </p>
+                                <p align="center">@row1["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row1["TYPE"].ToString()</p>
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="50%"></td>
+
+                        }
+
+                        if (row2 != null)
+                        {
+                            <td width="50%">
+                                <p align="center">
+                                    <a href="../../../../../../Gallery/PREVIEW/@row2["PKEY"].ToString()_@row2["SKEY"].ToString()"
+                                       target="_parent">
+                                        <img loading="lazy" src='@row2["PIC_DISPLAY"].ToString()' width="75%"
+                                             title="@row2["NAME_DISPLAY"].ToString()" />
+                                    </a>
+                                </p>
+                                <p align="center">@row2["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row2["TYPE"].ToString()</p>
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="50%"></td>
+
+                        }
+                    }
+                </tr>
+                <tr>
+                    @{
+                        if (row1 != null)
+                        {
+                            <td width="50%">
+                                <p>@row1["NAME_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="50%"></td>
+
+                        }
+
+                        if (row2 != null)
+                        {
+                            <td width="50%">
+                                <p>@row2["NAME_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="50%"></td>
+
+                        }
+
+                    }
+                </tr>
+
+            }
+
+        }
+
+    </table>
+
+</div>

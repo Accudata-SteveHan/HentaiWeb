@@ -1,0 +1,224 @@
+﻿@using System.Data
+
+<div> <!-- style="border:solid 1px black; width:auto;">-->
+    <table border="1" align="center" style="width:977px;">
+        @{
+            DataTable data = ViewData["DATA"] as DataTable;
+            for (int i = 0; i < data.Rows.Count; i += 5)
+            {
+                DataRow row1 = null;
+                DataRow row2 = null;
+                DataRow row3 = null;
+                DataRow row4 = null;
+                DataRow row5 = null;
+                if (i + 0 < data.Rows.Count)
+                {
+                    row1 = data.Rows[i + 0];
+
+                }
+                if (i + 1 < data.Rows.Count)
+                {
+                    row2 = data.Rows[i + 1];
+
+                }
+                if (i + 2 < data.Rows.Count)
+                {
+                    row3 = data.Rows[i + 2];
+
+                }
+                if (i + 3 < data.Rows.Count)
+                {
+                    row4 = data.Rows[i + 3];
+
+                }
+                if (i + 4 < data.Rows.Count)
+                {
+                    row5 = data.Rows[i + 4];
+
+                }
+
+                <tr>
+                    @{
+                        if (row1 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p align="center">
+                                    <a href="../../../../../Gallery/PREVIEW/@row1["PKEY"].ToString()_@row1["SKEY"].ToString()"
+                                       target="_parent">
+                                        <img loading="lazy" src='@row1["PIC_THUMB"].ToString()' style="width:90%;max-width:205px"
+                                             title="@row1["NAME_UNI"].ToString()" />
+                                    </a>
+                                </p>
+                                <p align="center">@row1["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row1["TYPE"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row2 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p align="center">
+                                    <a href="../../../../../Gallery/PREVIEW/@row2["PKEY"].ToString()_@row2["SKEY"].ToString()"
+                                       target="_parent">
+                                        <img loading="lazy" src='@row2["PIC_THUMB"].ToString()' style="width:90%;max-width:205px"
+                                             title="@row2["NAME_UNI"].ToString()" />
+                                    </a>
+                                </p>
+                                <p align="center">@row2["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row2["TYPE"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row3 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p align="center">
+                                    <a href="../../../../../Gallery/PREVIEW/@row3["PKEY"].ToString()_@row3["SKEY"].ToString()"
+                                       target="_parent">
+                                        <img loading="lazy" src='@row3["PIC_THUMB"].ToString()' style="width:90%;max-width:205px"
+                                             title="@row3["NAME_UNI"].ToString()" />
+                                    </a>
+                                </p>
+                                <p align="center">@row3["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row3["TYPE"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row4 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p align="center">
+                                    <a href="../../../../../Gallery/PREVIEW/@row4["PKEY"].ToString()_@row4["SKEY"].ToString()"
+                                       target="_parent">
+                                        <img loading="lazy" src='@row4["PIC_THUMB"].ToString()' style="width:90%;max-width:205px"
+                                             title="@row4["NAME_UNI"].ToString()" />
+                                    </a>
+                                </p>
+                                <p align="center">@row4["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row4["TYPE"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row5 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p align="center">
+                                    <a href="../../../../../Gallery/PREVIEW/@row5["PKEY"].ToString()_@row5["SKEY"].ToString()"
+                                       target="_parent">
+                                        <img loading="lazy" src='@row5["PIC_THUMB"].ToString()' style="width:90%;max-width:205px"
+                                             title="@row5["NAME_UNI"].ToString()" />
+                                    </a>
+                                </p>
+                                <p align="center">@row5["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row5["TYPE"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+                    }
+                </tr>
+                <tr>
+                    @{
+                        if (row1 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p>@row1["NAME_UNI"].ToString()</p>
+                                <p>@row1["NAME_ENG"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row2 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p>@row2["NAME_UNI"].ToString()</p>
+                                <p>@row2["NAME_ENG"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row3 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p>@row3["NAME_UNI"].ToString()</p>
+                                <p>@row3["NAME_ENG"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row4 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p>@row4["NAME_UNI"].ToString()</p>
+                                <p>@row4["NAME_ENG"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+
+                        if (row5 != null)
+                        {
+                            <td style="width:20%;max-width:205px">
+                                <p>@row5["NAME_UNI"].ToString()</p>
+                                <p>@row5["NAME_ENG"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td style="width:20%;max-width:205px"></td>
+
+                        }
+                    }
+                </tr>
+            }
+        }
+    </table>
+</div>

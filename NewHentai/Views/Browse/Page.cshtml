@@ -1,0 +1,56 @@
+﻿@using System.Data
+
+<div class="article">
+    <table border="1" width="100%">
+        @{
+            DataTable data = ViewData["DATA"] as DataTable;
+            foreach (DataRow row in data.Rows)
+            {
+                <tr>
+                    <td rowspan="5" width="20%">
+                        <p align="center"><img loading="lazy" src='@row["PIC_THUMB"].ToString()' /></p>
+
+                        <p align="center">@row["TYPE"].ToString()</p>
+                        
+
+                    </td>
+                    <td>
+                        <p>
+                            <a href="http://exhentai.org/g/@row["PKEY"].ToString()/@row["SKEY"].ToString()">
+                                @row["PKEY"].ToString()_@row["SKEY"].ToString()
+                            </a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@row["LANG"].ToString()</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@row["NAME_UNI"].ToString()</p>
+                        <p>@row["NAME_ENG"].ToString()</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@row["PAGE"].ToString() PAGE</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <a href="../../../../../Gallery/PREVIEW/@row["PKEY"].ToString()_@row["SKEY"].ToString()">～預覽～</a>
+
+                        </p>
+                    </td>
+                </tr>
+                
+            }
+
+        }
+
+    </table>
+
+</div>

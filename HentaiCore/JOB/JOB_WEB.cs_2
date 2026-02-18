@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using HtmlAgilityPack;
+
+namespace HentaiCore {
+    //網站的工作
+    public class JOB_WEB : JOB {
+        SITE_INFO site_info = null;
+        public List<PAGE_INFO> page_info = null;
+        Logger logger = Central.logger;
+
+        public JOB_WEB(SITE_INFO siteInfo) {
+            this.site_info = siteInfo;
+            this.page_info = new List<PAGE_INFO>();
+
+        }
+
+        public void ProcessSite() {
+            try {
+                this.logger.WriteInfo(string.Format("開始處理列表網站 : {0}", this.site_info.site_url));
+
+                //取得網頁資料
+                string html = this.GetWeb(this.site_info.site_url);
+                //如果是 exHentai 的話要在讀取一次頁面
+                if (this.site_info.site_url.Contains("exhentai")) {
+                    html = this.GetWeb(this.site_info.site_url);
+
+                }
+
+                //產生HTML分析
+                HtmlAgilityPack.HtmlDocument document = new HtmlAgilityPack.HtmlDocument();
+                document.LoadHtml(html);
+                HtmlNode node = document.DocumentNode;
+
+                //開始處理查詢結果
+                string xpath = "/html[1]/body[1]/div[2]/div[2]/table[1]/tr[1]";
+                HtmlNode tmpNode = node.SelectSingleNode(xpath);
+                if (tmpNode != null) {
+                    this.logger.Write(this, string.Format("處理列表網站資訊 : {0}", this.site_info.site_url));
+
+                    //取得總頁數
+                    this.site_info.page_info_count = int.Parse(tmpNode.ChildNodes[tmpNode.ChildNodes.Count - 2].InnerText);
+
+                    //產生頁面列表
+                    string page = "/{0}";
+                    for (int i = 0 ; i < this.site_info.page_info_count ; i++) {
+                        PAGE_INFO pageInfo = new PAGE_INFO(this.site_info.site_url + string.Format(page, i));
+                        pageInfo.site_url = this.site_info.site_url;
+
+                        this.page_info.Add(pageInfo);
+
+                    }
+
+                    this.logger.WriteInfo(string.Format("開始處理列表網站 : {0} PAGE_COUNT = {1}", this.site_info.site_url, this.site_info.page_info_count));
+
+                }
+
+            } catch (Exception ex) {
+                this.logger.WriteError(string.Format("JOB_WEB.ProcessSite 錯誤，{0}", ex.ToString()));
+
+            }
+
+        }
+
+    }
+
+}

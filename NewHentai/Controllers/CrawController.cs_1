@@ -1,0 +1,890 @@
+﻿using HentaiCore;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NewHentai.Controllers
+{
+    public partial class CrawController : Controller
+    {
+        private DataControlMdf control = new DataControlMdf();
+        private string conStrMain = @"Data Source={0}\SQLEXPRESS;DATABASE=HENTAI;Integrated Security=false;User ID=sa;PASSWORD=c06g4cl6;Connection Timeout=180";
+        private string conStrLib = @"Data Source={0}\SQLEXPRESS;DATABASE=ANIMELIBRARY;Integrated Security=false;User ID=sa;PASSWORD=c06g4cl6;Connection Timeout=180";
+        private string conStrPic = @"Data Source={0}\SQLEXPRESS;DATABASE=HENTAIPIC;Integrated Security=false;User ID=sa;PASSWORD=c06g4cl6;Connection Timeout=180";
+        private string conStrBook = @"Data Source={0}\SQLEXPRESS;DATABASE=MELONBOOK;Integrated Security=false;User ID=sa;PASSWORD=c06g4cl6;Connection Timeout=600";
+
+        public CrawController()
+        {
+
+        }
+
+        #region Core
+        private DataTable QueryDBData(string sql, string conStr)
+        {
+            string server = System.Configuration.ConfigurationManager.AppSettings.AllKeys.Contains("DB") ?
+                System.Configuration.ConfigurationManager.AppSettings["DB"] :
+                ".";
+
+            conStr = string.Format(conStr, server);
+
+            this.control.conStr = conStr;
+
+            DataTable data = this.control.GetData(sql);
+            return data;
+
+        }
+
+        private void UploadDBData(string[] sqls, string conStr)
+        {
+            try
+            {
+                string server = System.Configuration.ConfigurationManager.AppSettings.AllKeys.Contains("DB") ?
+                    System.Configuration.ConfigurationManager.AppSettings["DB"] :
+                    ".";
+
+                conStr = string.Format(conStr, server);
+
+                this.control.conStr = conStr;
+                int result = this.control.UploadData(sqls);
+
+                if (result < 0)
+                {
+                    throw new Exception("存檔失敗");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+        }
+
+        private void UploadDBData(DataTable data, string mainSql, string conStr)
+        {
+            try
+            {
+                string server = System.Configuration.ConfigurationManager.AppSettings.AllKeys.Contains("DB") ?
+                    System.Configuration.ConfigurationManager.AppSettings["DB"] :
+                    ".";
+
+                conStr = string.Format(conStr, server);
+
+                this.control.conStr = conStr;
+                int result = this.control.UploadData(mainSql, data);
+
+                if (result < 0)
+                {
+                    throw new Exception("存檔失敗");
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+        }
+
+        private AUTH Login(string user, string password)
+        {
+            AUTH auth = new AUTH(user, password);
+            if (auth.Login() >= 0)
+            {
+                return auth;
+
+            }
+            else
+            {
+                return null;
+
+            }
+
+        }
+
+        #endregion Core
+
+        #region DA
+        private DataTable GetStatus(string key)
+        {
+            string sql = "SELECT * FROM STATUS WHERE 1=1 {0}";
+            string filter = "";
+
+            if (key != "")
+            {
+                filter += string.Format(" and WEB = '{0}'", key);
+
+            }
+
+            sql = string.Format(sql, filter);
+
+            DataTable data = this.QueryDBData(sql, conStrMain);
+            data.PrimaryKey = new DataColumn[] { data.Columns["WEB"] };
+
+            return data;
+
+        }
+
+        private void UpdateStatus(DataTable data)
+        {
+            string sql = "SELECT * FROM STATUS";
+
+            this.UploadDBData(data, sql, conStrMain);
+
+        }
+
+        private DataTable GetObject(string key)
+        {
+            string sql = "SELECT * FROM OBJECT WHERE 1=1 AND WEB_ID = 'EXHENTAI' {0} ORDER BY STATUS , UPDATE_TIME";
+            string filter = "";
+            if (key == null)
+            {
+                filter += string.Format(
+                    " and (STATUS = '0' or STATUS = '1')",
+                    key);
+            }
+            else if (key != "")
+            {
+                filter += string.Format(" and ID = '{0}'", key);
+
+            }
+
+
+            sql = string.Format(sql, filter);
+
+            DataTable data = this.QueryDBData(sql, conStrMain);
+            data.PrimaryKey = new DataColumn[] { data.Columns["ID"] };
+
+            return data;
+
+        }
+
+        private void UpdateObject(DataTable data)
+        {
+            string sql = "SELECT * FROM OBJECT";
+
+            this.UploadDBData(data, sql, conStrMain);
+
+        }
+
+        private DataTable GetPicObject(string key)
+        {
+            string sql = "SELECT * FROM OBJECT WHERE 1=1 AND WEB_ID = 'EXHENTAI' {0} ORDER BY STATUS , UPDATE_TIME";
+            string filter = "";
+            if (key == null)
+            {
+                filter += string.Format(
+                    " and (STATUS = '1' or STATUS = '2')",
+                    key);
+            }
+            else if (key != "")
+            {
+                filter += string.Format(" and ID = '{0}'", key);
+
+            }
+
+
+            sql = string.Format(sql, filter);
+
+            DataTable data = this.QueryDBData(sql, conStrMain);
+            data.PrimaryKey = new DataColumn[] { data.Columns["ID"] };
+
+            return data;
+
+        }
+
+        private DataTable GetDataExHentai(string pKey , string sKey)
+        {
+            string sql = "SELECT * FROM DATA_EXHENTAI WHERE 1=1 {0}";
+            string filter = "";
+
+            if (pKey != "")
+            {
+                filter += string.Format(" and PKEY = '{0}'", pKey);
+
+            }
+
+            if (sKey != "")
+            {
+                filter += string.Format(" and SKEY = '{0}'", sKey);
+
+            }
+
+            sql = string.Format(sql, filter);
+
+            DataTable data = this.QueryDBData(sql, conStrMain);
+            data.PrimaryKey = new DataColumn[] { data.Columns["OBJ_ID"] };
+
+            return data;
+
+        }
+
+        private void UpdateDataExHentai(DataTable data)
+        {
+            string sql = "SELECT * FROM DATA_EXHENTAI";
+
+            this.UploadDBData(data, sql, conStrMain);
+
+        }
+
+        private DataTable GetGalleryBookData(string pKey, string sKey)
+        {
+            string sql = "";
+
+            sql = "SELECT * FROM DATA_EXHENTAI_DETAIL WHERE 1=1 and PKEY = '{0}' and SKEY = '{1}' ";
+            sql = string.Format(sql, pKey, sKey);
+            DataTable dataBook = this.QueryDBData(sql, conStrLib);
+
+            return dataBook;
+
+        }
+
+        private DataTable GetDataExHentaiPic(string pKey, string sKey)
+        {
+            string sql = "SELECT * FROM DATA_EXHENTAI_PIC WHERE 1=1 {0}";
+            string filter = "";
+
+            if (pKey != "")
+            {
+                filter += string.Format(" and PKEY = '{0}'", pKey);
+
+            }
+
+            if (sKey != "")
+            {
+                filter += string.Format(" and SKEY = '{0}'", sKey);
+
+            }
+
+            sql = string.Format(sql, filter);
+
+            DataTable data = this.QueryDBData(sql, conStrPic);
+            data.PrimaryKey = new DataColumn[] { data.Columns["PKEY"], data.Columns["SKEY"], data.Columns["PAGE"] };
+
+            return data;
+
+        }
+
+        private void UpdateDataExHentaiPic(DataTable data)
+        {
+            string sql = "SELECT * FROM DATA_EXHENTAI_PIC";
+
+            this.UploadDBData(data, sql, conStrPic);
+
+        }
+
+        #endregion DA
+
+        // GET: Craw
+        public ActionResult Index()
+        {
+            return View();
+
+        }
+
+        public ActionResult GET_EXHENTAI_PIC(string param)
+        {
+            string id = string.Format("EX_{0}", param);
+
+            try
+            {
+                Regex regex = new Regex(@"EX_(\w+)_(\w+)");
+
+                string pKey = regex.Match(id).Groups[1].Value;
+                string sKey = regex.Match(id).Groups[2].Value;
+
+                DataTable dataExHentai = this.GetDataExHentai(pKey, sKey);
+                DataTable dataExHentaiDetail = this.GetGalleryBookData(pKey, sKey);
+                DataTable dataExHentaiPic = this.GetDataExHentaiPic(pKey, sKey);
+
+                string localPath = System.Configuration.ConfigurationManager.AppSettings["LocalSavePath"].ToString();
+                int totalPage = int.Parse(dataExHentaiDetail.Rows[0]["PAGE"].ToString());
+                //DirectoryInfo dirInfo = new DirectoryInfo(Path.Combine(localPath, pKey.PadLeft(7, '0')));
+                DirectoryInfo dirInfo = new DirectoryInfo(string.Format(Server.MapPath("/{0}/{1}"), localPath, pKey.PadLeft(7, '0')));
+
+                if (dataExHentaiPic.Rows.Count == 0 ||
+                    dataExHentaiPic.Rows.Count != totalPage ||
+                    !dirInfo.Exists ||
+                    dirInfo.GetFiles().Length == 0 ||
+                    dirInfo.GetFiles().Length != totalPage)
+                {
+                    string url = "{0}/CRAW/CRAW_EXHENTAI_PIC/{1}_{2}";
+                    string basePage = System.Configuration.ConfigurationManager.AppSettings["BasePage"].ToString();
+                    url = string.Format(url, basePage, pKey, sKey);
+
+                    HttpWebRequest req = HttpWebRequest.Create(url) as HttpWebRequest;
+                    req.Timeout = 1000 * 15 * totalPage;
+
+                    using (HttpWebResponse res = req.GetResponse() as HttpWebResponse)
+                    {
+                        if (res.StatusCode != HttpStatusCode.OK)
+                        {
+                            throw new Exception("圖片擷取失敗");
+
+                        }
+
+                    }
+                }
+
+                ViewData["DATA"] = "";
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["MSG"] = ex.ToString();
+
+            }
+
+            return View();
+
+        }
+
+        public ActionResult CRAW_EXHENTAI_PIC(string param)
+        {
+            DataTable dataObject = null;
+            string id = "";
+
+            if (param == null)
+            {
+                dataObject = this.GetPicObject(param);
+
+                id = dataObject.Rows[0]["ID"].ToString();
+
+            }
+            else if (param != "")
+            {
+                id = string.Format("EX_{0}", param);
+
+                dataObject = this.GetPicObject(id);
+
+            }
+
+            dataObject.Rows[0]["STATUS"] = "5";
+            dataObject.Rows[0]["UPDATE_TIME"] = DateTime.Now;
+
+            try
+            {
+                Regex regex = new Regex(@"EX_(\w+)_(\w+)");
+
+                string pKey = regex.Match(id).Groups[1].Value;
+                string sKey = regex.Match(id).Groups[2].Value;
+                
+                DataTable dataExHentaiDetail = this.GetGalleryBookData(pKey, sKey);
+                DataTable dataExHentaiPic = this.GetDataExHentaiPic(pKey, sKey);
+
+                Json jsonObject = new Json();
+
+                string baseUrl = "https://exhentai.org";
+                string url = "https://exhentai.org/g/{0}/{1}/";
+                url = string.Format(url, pKey, sKey);
+
+                Central.logger = new Logger();
+                //Central.jobControl = new JOB_CONTROL();
+                //Central.jobDownload = new JOB_CONTROL();
+                Central.PathDirector = new FileDirector();
+
+                if (Central.authUser == null)
+                {
+                    Central.authUser = this.Login("username", "password");
+
+                }
+
+                #region JOB_THREAD
+                THREAD_INFO threadInfo = new THREAD_INFO(url);
+
+                JOB_THREAD jobThread = new JOB_THREAD(threadInfo);
+                jobThread.domain = baseUrl;
+                jobThread.authUser = Central.authUser;
+                jobThread.GetBookInfo();
+                jobThread.GetBookInfo();
+
+                BOOK_INFO bookInfo = jobThread.book_info;
+
+                #endregion JOB_THREAD
+
+                #region JOB_PIC
+                JOB_DL_LIST jobDLList = new JOB_DL_LIST(bookInfo);
+                jobDLList.domain = baseUrl;
+                jobDLList.authUser = Central.authUser;
+
+                for (int div = 5; div <= 7; div++)
+                {
+                    jobDLList.ProcessDLList(div.ToString());
+
+                    if (jobDLList.pic_info.Count > 0)
+                    {
+                        break;
+
+                    }
+                }
+
+                
+
+                List<PIC_INFO> picList = jobDLList.pic_info;
+
+                #endregion JOB_PIC
+
+                foreach (PIC_INFO picInfo in picList)
+                {
+                    DataRow rowPic = null;
+
+                    string picUrl = picInfo.picUrl;
+                    string imgUrl = picInfo.picImgUrl;
+                    string page = picInfo.picNo;
+
+                    DataRow[] rows = dataExHentaiPic.Select(
+                        string.Format("PKEY = '{0}' and PAGE = '{1}'", pKey, page));
+                    if (rows.Length == 0)
+                    {
+                        rowPic = dataExHentaiPic.NewRow();
+                        rowPic["PKEY"] = pKey;
+                        rowPic["SKEY"] = sKey;
+                        rowPic["PAGE"] = page;
+                        rowPic["SAVE_PATH"] = Path.Combine(
+                            @"Gallery\Image",
+                            string.Format("{0}_{1}_{2}", pKey, sKey, page));
+                        rowPic["LOAD_TIME"] = DateTime.Now;
+
+                        JObject obj = new JObject();
+                        obj.Add("TYPE", "ADD");
+                        obj.Add("PKEY", pKey);
+                        obj.Add("SKEY", sKey);
+                        obj.Add("PAGE", page);
+
+                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+
+                    }
+                    else
+                    {
+                        rowPic = rows[0];
+
+                        JObject obj = new JObject();
+                        obj.Add("TYPE", "EDIT");
+                        obj.Add("PKEY", pKey);
+                        obj.Add("SKEY", sKey);
+                        obj.Add("PAGE", page);
+
+                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+
+                    }
+
+                    rowPic["URL"] = picUrl;
+                    rowPic["PIC_URL"] = imgUrl;
+                    rowPic["USER_ID"] = "PIC";
+                    rowPic["UPDATE_TIME"] = DateTime.Now;
+
+                    if (rows.Length == 0)
+                    {
+                        dataExHentaiPic.Rows.Add(rowPic);
+
+                    }
+
+                }
+
+                this.UpdateDataExHentaiPic(dataExHentaiPic);
+                this.UpdateObject(dataObject);
+
+                ViewData["DATA"] = jsonObject.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["MSG"] = ex.ToString();
+
+            }
+
+            return View();
+
+        }
+
+        public ActionResult CRAW_EXHENTAIDEEP_PIC(string param)
+        {
+            DataTable dataObject = null;
+            string id = "";
+
+            if (param == null)
+            {
+                dataObject = this.GetPicObject(param);
+
+                id = dataObject.Rows[0]["ID"].ToString();
+
+            }
+            else if (param != "")
+            {
+                id = string.Format("EX_{0}", param);
+
+                dataObject = this.GetPicObject(id);
+
+            }
+
+            dataObject.Rows[0]["STATUS"] = "5";
+            dataObject.Rows[0]["UPDATE_TIME"] = DateTime.Now;
+
+            try
+            {
+                Regex regex = new Regex(@"EX_(\w+)_(\w+)");
+
+                string pKey = regex.Match(id).Groups[1].Value;
+                string sKey = regex.Match(id).Groups[2].Value;
+
+                DataTable dataExHentaiDetail = this.GetGalleryBookData(pKey, sKey);
+                DataTable dataExHentaiPic = this.GetDataExHentaiPic(pKey, sKey);
+
+                Json jsonObject = new Json();
+
+                string baseUrl = "https://exhentai.org";
+                string url = "https://exhentai.org/g/{0}/{1}/";
+                url = string.Format(url, pKey, sKey);
+
+                Central.logger = new Logger();
+                //Central.jobControl = new JOB_CONTROL();
+                //Central.jobDownload = new JOB_CONTROL();
+                Central.PathDirector = new FileDirector();
+
+                if (Central.authUser == null)
+                {
+                    Central.authUser = this.Login("username", "password");
+
+                }
+
+                #region JOB_THREAD
+                THREAD_INFO threadInfo = new THREAD_INFO(url);
+
+                JOB_THREAD jobThread = new JOB_THREAD(threadInfo);
+                jobThread.domain = baseUrl;
+                jobThread.authUser = Central.authUser;
+                jobThread.GetBookInfo();
+                jobThread.GetBookInfo();
+
+                BOOK_INFO bookInfo = jobThread.book_info;
+
+                #endregion JOB_THREAD
+
+                #region JOB_PIC
+                JOB_DL_LIST jobDLList = new JOB_DL_LIST(bookInfo);
+                jobDLList.domain = baseUrl;
+                jobDLList.authUser = Central.authUser;
+                jobDLList.ProcessDLList();
+                jobDLList.ProcessDeepDLList();
+
+                if (jobDLList.pic_info.Count == 0)
+                {
+                    jobDLList.ProcessDLList("7");
+                    jobDLList.ProcessDeepDLList();
+
+                }
+
+                List<PIC_INFO> picList = jobDLList.pic_info;
+
+                #endregion JOB_PIC
+
+                foreach (PIC_INFO picInfo in picList)
+                {
+                    DataRow rowPic = null;
+
+                    string picUrl = picInfo.picUrl;
+                    string imgUrl = picInfo.picImgUrl;
+                    string page = picInfo.picNo;
+
+                    DataRow[] rows = dataExHentaiPic.Select(
+                        string.Format("PKEY = '{0}' and PAGE = '{1}'", pKey, page));
+                    if (rows.Length == 0)
+                    {
+                        rowPic = dataExHentaiPic.NewRow();
+                        rowPic["PKEY"] = pKey;
+                        rowPic["SKEY"] = sKey;
+                        rowPic["PAGE"] = page;
+                        rowPic["SAVE_PATH"] = Path.Combine(
+                            @"Gallery\Image",
+                            string.Format("{0}_{1}_{2}", pKey, sKey, page));
+                        rowPic["LOAD_TIME"] = DateTime.Now;
+
+                        JObject obj = new JObject();
+                        obj.Add("TYPE", "ADD");
+                        obj.Add("PKEY", pKey);
+                        obj.Add("SKEY", sKey);
+                        obj.Add("PAGE", page);
+
+                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+
+                    }
+                    else
+                    {
+                        rowPic = rows[0];
+
+                        JObject obj = new JObject();
+                        obj.Add("TYPE", "EDIT");
+                        obj.Add("PKEY", pKey);
+                        obj.Add("SKEY", sKey);
+                        obj.Add("PAGE", page);
+
+                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+
+                    }
+
+                    rowPic["URL"] = picUrl;
+                    rowPic["PIC_URL"] = imgUrl;
+                    rowPic["USER_ID"] = "PIC";
+                    rowPic["UPDATE_TIME"] = DateTime.Now;
+
+                    if (rows.Length == 0)
+                    {
+                        dataExHentaiPic.Rows.Add(rowPic);
+
+                    }
+
+                }
+
+                this.UpdateDataExHentaiPic(dataExHentaiPic);
+                this.UpdateObject(dataObject);
+
+                ViewData["DATA"] = jsonObject.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                ViewData["MSG"] = ex.ToString();
+
+            }
+
+            return View();
+
+        }
+
+        public ActionResult RESET_EXHENTAI_DATA_ERROR_CODE(string param)
+        {
+            string id = "";
+            string key = "EX_{0}_{1}";
+            DataTable data = null;
+
+            JObject result = new JObject();
+
+            if (param != null && param.Split('_').Length == 2)
+            {
+                string pKey = param.Split('_')[0];
+                string sKey = param.Split('_')[1];
+                id = string.Format(key, pKey, sKey);
+
+                data = this.GetObject(id);
+
+                if (data.Rows.Count == 0)
+                {
+                    result.Add("RESULT", "找不到資料");
+
+                }
+                else if (data.Rows.Count > 1)
+                {
+                    result.Add("RESULT", "資料筆數非唯一");
+
+                }
+
+            }
+            else
+            {
+                string sql = "SELECT * FROM OBJECT WHERE STATUS = '9'";
+                data = this.QueryDBData(sql, conStrMain);
+                data.PrimaryKey = new DataColumn[] { data.Columns["ID"] };
+
+            }
+
+            foreach (DataRow row in data.Rows)
+            {
+                row["STATUS"] = "0";
+                row["UPDATE_USER"] = "CRAW";
+                row["UPDATE_TIME"] = DateTime.Now;
+
+            }
+
+            this.UpdateObject(data);
+
+            result.Add("RESULT", "OK");
+
+            ViewData["RESULT"] = result.ToString();
+
+            return View();
+
+        }
+
+        public ActionResult RESET_EXHENTAI_DATA_PAGE(string param)
+        {
+            string id = "";
+            string key = "EXHENTAI_{0}";
+            DataTable data = null;
+
+            JObject result = new JObject();
+
+            if (param != null)
+            {
+                id = string.Format(key, param);
+
+                data = this.GetStatus(id);
+
+                if (data.Rows.Count == 0)
+                {
+                    result.Add("RESULT", "找不到資料");
+
+                }
+                else if (data.Rows.Count > 1)
+                {
+                    result.Add("RESULT", "資料筆數非唯一");
+
+                }
+
+            }
+            else
+            {
+                string sql = "SELECT * FROM STATUS WHERE WEB LIKE 'EXHENTAI_%'";
+                data = this.QueryDBData(sql, conStrMain);
+                data.PrimaryKey = new DataColumn[] { data.Columns["WEB"] };
+
+            }
+
+            foreach (DataRow row in data.Rows)
+            {
+                row["PROC_PAGE"] = "0";
+                row["UPDATE_TIME"] = DateTime.Now;
+
+            }
+
+            this.UpdateStatus(data);
+            result.Add("RESULT", "OK");
+
+            ViewData["RESULT"] = result.ToString();
+
+            return View();
+
+        }
+
+        public ActionResult RESET_EXHENTAI_DATA_MAXKEY(string param)
+        {
+            string id = "";
+            string key = "EXHENTAI_{0}";
+            DataTable data = null;
+
+            JObject result = new JObject();
+
+            if (param != null)
+            {
+                id = string.Format(key, param);
+
+                data = this.GetStatus(id);
+
+                if (data.Rows.Count == 0)
+                {
+                    result.Add("RESULT", "找不到資料");
+
+                }
+                else if (data.Rows.Count > 1)
+                {
+                    result.Add("RESULT", "資料筆數非唯一");
+
+                }
+
+            }
+            else
+            {
+                string sql = "SELECT * FROM STATUS WHERE WEB LIKE 'EXHENTAI_%'";
+                data = this.QueryDBData(sql, conStrMain);
+                data.PrimaryKey = new DataColumn[] { data.Columns["WEB"] };
+
+            }
+
+            foreach (DataRow row in data.Rows)
+            {
+                row["LAST_KEY"] = "9999999";
+                row["UPDATE_TIME"] = DateTime.Now;
+
+            }
+
+            this.UpdateStatus(data);
+            result.Add("RESULT", "OK");
+
+            ViewData["RESULT"] = result.ToString();
+
+            return View();
+
+        }
+
+        public ActionResult DOWNLOAD_EXHENTAI_PIC(string param)
+        {
+            if (param == null)
+            {
+                return View();
+
+            }
+
+            string localPath = System.Configuration.ConfigurationManager.AppSettings["LocalSavePath"].ToString();
+            string webPath = System.Configuration.ConfigurationManager.AppSettings["WebSavePath"].ToString();
+
+            if (Central.authUser == null)
+            {
+                Central.authUser = this.Login("username", "password");
+
+            }
+
+            string[] p = param.ToString().Split('_');
+            string pKey = p[0];
+            string sKey = p[1];
+            string imagePage = p[2];
+
+            //string path = Path.Combine(localPath, pKey.PadLeft(7, '0'));
+            string path = string.Format(Server.MapPath("/{0}/{1}"), localPath, pKey.PadLeft(7, '0'));
+            
+
+            DataRow[] picRows = this.GetDataExHentaiPic(pKey, sKey).Select(string.Format("PAGE = '{0}'", imagePage));
+            if (picRows.Length == 0)
+            {
+                return View();
+
+            }
+            DataRow picRow = picRows[0];
+
+            Random sleepTime = new Random(int.Parse(DateTime.Now.ToString("HHmmss")));
+            Thread.Sleep(sleepTime.Next(100, 250) *
+                sleepTime.Next(
+                    (int.Parse(imagePage) / 10) <= 10 ? 1 : (int.Parse(imagePage) / 10),
+                    (int.Parse(imagePage) / 05) <= 10 ? 10 : (int.Parse(imagePage) / 05)
+                    )
+                );
+
+            Central.logger = new Logger();
+
+            PIC_INFO picInfo = new PIC_INFO();
+            picInfo.picUrl = picRow["URL"].ToString();
+            picInfo.picImgUrl = picRow["PIC_URL"].ToString();
+            picInfo.picNo = picRow["PAGE"].ToString();
+            picInfo.picFileName = param;
+
+            JOB_PIC jobPic = new JOB_PIC(picInfo);
+            jobPic.save_path = path;
+            jobPic.ProcessDownloadPic();
+
+            FileInfo fileInfoSrc = new FileInfo(Path.Combine(string.Format(Server.MapPath("/{0}/{1}"), localPath, pKey.PadLeft(7, '0')), param + ".jpg"));
+            FileInfo fileInfoDst = new FileInfo(Path.Combine(string.Format(Server.MapPath("/{0}/{1}"), webPath, pKey.PadLeft(7, '0')), param + ".jpg"));
+            if (fileInfoSrc.Exists)
+            {
+                //fileInfoSrc.CopyTo(fileInfoDst.FullName, true);
+                fileInfoSrc.CopyTo(fileInfoDst.FullName, false);
+
+            }
+            
+            return View();
+
+        }
+
+    }
+
+}

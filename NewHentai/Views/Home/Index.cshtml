@@ -1,0 +1,529 @@
+﻿@using System.Data;
+
+@{
+    string viewKey = ViewData["KEY"].ToString();
+
+}
+
+<table border="1" width="90%" align="center">
+    <tr>
+        <td align="center" width="5%"></td>
+        <td align="center" width="6%">ALL</td>
+        <td align="center" width="8%"></td>
+        <td align="center" width="27%" colspan="3">MANGA</td>
+        <td align="center" width="27%" colspan="3">DOUJINSHI</td>
+        <td align="center" width="27%" colspan="3">NON-H</td>
+    </tr>
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" rowspan="4">分頁</td>
+                <td align="center" rowspan="4"><a href="../Browse/View/ALL/ALL">ALL</a></td>
+                <td align="center" height="50px">40頁</td>
+                <td align="center" width="9%"><a href="../Browse/View/Smanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Smanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Smanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Sdoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Sdoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Sdoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Snon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Snon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Snon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" rowspan="4">分頁</td>
+                <td align="center" rowspan="4"><a href="../Show/View/@viewKey/ALL/ALL">ALL</a></td>
+                <td align="center" height="50px">40頁</td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Smanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Smanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Smanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Sdoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Sdoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Sdoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Snon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Snon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Snon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" height="50px">100頁</td>
+                <td align="center" width="9%"><a href="../Browse/View/Mmanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mmanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mmanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mdoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mdoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mdoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mnon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mnon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Mnon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" height="50px">100頁</td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mmanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mmanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mmanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mdoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mdoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mdoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mnon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mnon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Mnon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" height="50px">400頁</td>
+                <td align="center" width="9%"><a href="../Browse/View/Lmanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Lmanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Lmanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Ldoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Ldoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Ldoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Lnon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Lnon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Lnon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" height="50px">400頁</td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Lmanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Lmanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Lmanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Ldoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Ldoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Ldoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Lnon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Lnon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Lnon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" height="50px">400頁~</td>
+                <td align="center" width="9%"><a href="../Browse/View/Xmanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xmanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xmanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xdoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xdoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xdoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xnon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xnon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Browse/View/Xnon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" height="50px">400頁~</td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xmanga/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xmanga/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xmanga/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xdoujinshi/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xdoujinshi/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xdoujinshi/Japanese">JP</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xnon-h/ALL">ALL</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xnon-h/Chinese">CH</a></td>
+                <td align="center" width="9%"><a href="../Show/View/@viewKey/Xnon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" rowspan="4">特徵</td>
+                <td align="center" rowspan="4"><a href="../Browse/Display/ALL/ALL">ALL</a></td>
+                <td align="center" height="50px">40頁</td>
+                <td align="center"><a href="../Browse/Display/Smanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Smanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Smanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Sdoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Sdoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Sdoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Snon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Snon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Snon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" rowspan="4">特徵</td>
+                <td align="center" rowspan="4"><a href="../Show/Display/@viewKey/ALL/ALL">ALL</a></td>
+                <td align="center" height="50px">40頁</td>
+                <td align="center"><a href="../Show/Display/@viewKey/Smanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Smanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Smanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Sdoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Sdoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Sdoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Snon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Snon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Snon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" height="50px">100頁</td>
+                <td align="center"><a href="../Browse/Display/Mmanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Mmanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Mmanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Mdoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Mdoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Mdoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Mnon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Mnon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Mnon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" height="50px">100頁</td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mmanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mmanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mmanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mdoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mdoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mdoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mnon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mnon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Mnon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" height="50px">400頁</td>
+                <td align="center"><a href="../Browse/Display/Lmanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Lmanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Lmanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Ldoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Ldoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Ldoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Lnon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Lnon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Lnon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" height="50px">400頁</td>
+                <td align="center"><a href="../Show/Display/@viewKey/Lmanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Lmanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Lmanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Ldoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Ldoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Ldoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Lnon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Lnon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Lnon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" height="50px">400頁~</td>
+                <td align="center"><a href="../Browse/Display/Xmanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Xmanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Xmanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Xdoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Xdoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Xdoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/Display/Xnon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/Display/Xnon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/Display/Xnon-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" height="50px">400頁~</td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xmanga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xmanga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xmanga/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xdoujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xdoujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xdoujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xnon-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xnon-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/Display/@viewKey/Xnon-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+    <tr>
+        @{
+            if (viewKey == "-")
+            {
+                <td align="center" height="50px">Melon<br />Book</td>
+                <td align="center"><a href="../Browse/MelonBook/ALL/ALL">ALL</a></td>
+                <td align="center" height="50px"></td>
+                <td align="center"><a href="../Browse/MelonBook/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBook/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBook/manga/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MelonBook/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBook/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBook/doujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MelonBook/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBook/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBook/non-h/Japanese">JP</a></td>
+
+            }
+            else
+            {
+                <td align="center" height="30px">Melon<br />Book</td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/ALL/ALL">ALL</a></td>
+                <td align="center" height="50px"></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/manga/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/doujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/non-h/Japanese">JP</a></td>
+
+            }
+
+        }
+
+    </tr>
+
+</table>
+
+<p>
+
+</p>
+
+@{
+    if (viewKey == "-")
+    {
+        <table border="1" width="90%" align="center">
+            <tr>
+                <td align="center" />
+                <td align="center" colspan="3">MelonBook</td>
+                <td align="center" colspan="3">MapMelonBook</td>
+            </tr>
+            <tr>
+                <td align="center">ALL</td>
+                <td align="center" width="15%"><a href="../Browse/MelonBook/ALL/ALL">ALL</a></td>
+                <td align="center" width="15%"><a href="../Browse/MelonBook/ALL/Chinese">CH</a></td>
+                <td align="center" width="15%"><a href="../Browse/MelonBook/ALL/Japanese">JP</a></td>
+                <td align="center" width="15%"><a href="../Browse/MapMelonBook/ALL/ALL">ALL</a></td>
+                <td align="center" width="15%"><a href="../Browse/MapMelonBook/ALL/Chinese">CH</a></td>
+                <td align="center" width="15%"><a href="../Browse/MapMelonBook/ALL/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">MANGA</td>
+                <td align="center"><a href="../Browse/MelonBook/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBook/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBook/manga/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/manga/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">DOUJINSHI</td>
+                <td align="center"><a href="../Browse/MelonBook/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBook/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBook/doujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/doujinshi/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">NON-H</td>
+                <td align="center"><a href="../Browse/MelonBook/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBook/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBook/non-h/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MapMelonBook/non-h/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center" />
+                <td align="center" colspan="3">TagMelonBook</td>
+                <td align="center" colspan="3">MapTagMelonBook</td>
+            </tr>
+            <tr>
+                <td align="center">ALL</td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/ALL/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/ALL/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/ALL/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/ALL/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/ALL/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/ALL/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">MANGA</td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/manga/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/manga/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">DOUJINSHI</td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/doujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/doujinshi/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">NON-H</td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRank/non-h/Japanese">JP</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Browse/MelonBookTagRankReady/non-h/Japanese">JP</a></td>
+            </tr>
+        </table>
+
+    }
+    else
+    {
+        <table border="1" width="90%" align="center">
+            <tr>
+                <td align="center" />
+                <td align="center" colspan="3">MelonBook</td>
+                <td align="center" colspan="3">MapMelonBook</td>
+            </tr>
+            <tr>
+                <td align="center">ALL</td>
+                <td align="center" width="15%"><a href="../Show/MelonBook/@viewKey/ALL/ALL">ALL</a></td>
+                <td align="center" width="15%"><a href="../Show/MelonBook/@viewKey/ALL/Chinese">CH</a></td>
+                <td align="center" width="15%"><a href="../Show/MelonBook/@viewKey/ALL/Japanese">JP</a></td>
+                <td align="center" width="15%"><a href="../Show/MapMelonBook/@viewKey/ALL/ALL">ALL</a></td>
+                <td align="center" width="15%"><a href="../Show/MapMelonBook/@viewKey/ALL/Chinese">CH</a></td>
+                <td align="center" width="15%"><a href="../Show/MapMelonBook/@viewKey/ALL/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">MANGA</td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/manga/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/manga/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">DOUJINSHI</td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/doujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/doujinshi/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">NON-H</td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBook/@viewKey/non-h/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MapMelonBook/@viewKey/non-h/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center" />
+                <td align="center" colspan="3">TagMelonBook</td>
+                <td align="center" colspan="3">MapTagMelonBook</td>
+            </tr>
+            <tr>
+                <td align="center">ALL</td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/ALL/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/ALL/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/ALL/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/ALL/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/ALL/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/ALL/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">MANGA</td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/manga/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/manga/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/manga/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/manga/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">DOUJINSHI</td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/doujinshi/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/doujinshi/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/doujinshi/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/doujinshi/Japanese">JP</a></td>
+            </tr>
+            <tr>
+                <td align="center">NON-H</td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRank/@viewKey/non-h/Japanese">JP</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/non-h/ALL">ALL</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/non-h/Chinese">CH</a></td>
+                <td align="center"><a href="../Show/MelonBookTagRankReady/@viewKey/non-h/Japanese">JP</a></td>
+            </tr>
+        </table>
+
+    }
+
+}
+

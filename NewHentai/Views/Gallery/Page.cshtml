@@ -1,0 +1,96 @@
+﻿@using System.Data
+
+<div class="article">
+    <table border="1" width="100%">
+        @{
+            int maxDisplay = 20;
+            int count = 0;
+            int skip = 0;
+
+            string page = ViewData["PAGE"] != null ? ViewData["PAGE"].ToString() : "0";
+
+            int totalSkip;
+
+            if (!int.TryParse(page, out totalSkip))
+            {
+                totalSkip = 0;
+
+            }
+            else
+            {
+                totalSkip *= maxDisplay;
+
+            }
+
+            DataTable data = ViewData["DATA"] as DataTable;
+            DataTable dataMain = ViewData["INDEX"] as DataTable;
+            foreach (DataRow row in data.Rows)
+            {
+                if (skip != totalSkip)
+                {
+                    skip++;
+                    continue;
+
+                }
+
+                DataRow[] mainRows = dataMain.Select(string.Format("PKEY= '{0}'", row["PKEY"]));
+
+                <tr>
+                    <td rowspan="5" width="20%">
+                        <p align="center"><img loading="lazy" src='@row["PIC_THUMB"].ToString()' /></p>
+
+                        @if (mainRows.Length > 0)
+                        {
+                            <p align="center">@mainRows[0]["TYPE"].ToString()</p>
+                        }
+
+                    </td>
+                    <td>
+                        <p>
+                            <a href="http://exhentai.org/g/@row["PKEY"].ToString()/@row["SKEY"].ToString()">
+                                @row["PKEY"].ToString()_@row["SKEY"].ToString()
+                            </a>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@row["LANG"].ToString()</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@row["NAME_UNI"].ToString()</p>
+                        <p>@row["NAME_ENG"].ToString()</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>@row["PAGE"].ToString() PAGE</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            <a href="../Gallery/PREVIEW/@row["PKEY"].ToString()_@row["SKEY"].ToString()">～預覽～</a>
+
+                            <a href="../Gallery/DATA/@row["PKEY"].ToString()_@row["SKEY"].ToString()">～閱讀～</a>
+                        </p>
+                    </td>
+                </tr>
+
+                count++;
+
+                if (count == maxDisplay)
+                {
+                    break;
+
+                }
+
+            }
+
+        }
+
+    </table>
+
+</div>

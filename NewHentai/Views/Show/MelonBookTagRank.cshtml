@@ -1,0 +1,31 @@
+﻿@using System.Data
+
+@{
+    string lang = ViewData["LANG"].ToString();
+    string type = ViewData["TYPE"].ToString();
+    string page = ViewData["PAGE"].ToString();
+    string param = ViewData["PARAM"].ToString();
+    string viewKey = ViewData["KEY"].ToString();
+
+    string baseUrl = System.Configuration.ConfigurationManager.AppSettings["BasePage"].ToString();
+
+
+}
+
+<div style="height:100%;">
+    @{
+        DataTable dataMain = ViewData["DATA"] as DataTable;
+
+        for (int i = 0; i < dataMain.Rows.Count; i += 1)
+        {
+            DataRow row = dataMain.Rows[i];
+
+            string url = baseUrl + "/MELONSHOW/MelonBookTag/" + viewKey + "/" + row["GUID"].ToString() + "/" + @type + "/" + @lang;
+            string name = string.Format("{0}({1})", row["TAG_NAME"], row["CNT"]);
+
+            <a href="@url">@name</a>
+
+        }
+
+    }
+</div>

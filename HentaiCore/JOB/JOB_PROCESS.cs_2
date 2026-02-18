@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
+namespace HentaiCore {
+    public class JOB_PROCESS : JOB {
+        System.Threading.Thread t = null;
+        public event EventHandler finish = null;
+
+        string url = "";
+        string MainUrl = "";
+
+        string userName = "";
+        string passWord = "";
+        int pageNum = 0;
+
+        public int PageCount = -1;
+        public List<BOOK_INFO> BookInfoList = null;
+
+        public JOB_PROCESS(string url, string userName, string passWord) {
+            this.url = url;
+            this.userName = userName;
+            this.passWord = passWord;
+
+        }
+
+        public JOB_PROCESS(string url, int pageNum, string userName, string passWord) {
+            this.url = url;
+            this.pageNum = pageNum;
+            this.userName = userName;
+            this.passWord = passWord;
+
+        }
+
+        public void BeginProcess() {
+            this.logger.WriteInfo(string.Format("行動開始 URL：{0}", url));
+
+            Uri uri = new Uri(url);
+            this.MainUrl = string.Format("https://{0}", uri.Host);
+
+            SITE_INFO webSite = new SITE_INFO(url);
+
+            JOB_CONTROL jobControl = new JOB_CONTROL();
+            #region 處理 AUTH
+            this.logger.Write(this, string.Format("處理 AUTH URL：{0}", url));
+            if (Central.authUser == null) {
+                AUTH auth = new AUTH(userName, passWord);
+                auth.Login();
+
+                Central.authUser = auth;
+
+            }
+
+            #endregion 處理 AUTH
+
+            #region GET_SITE
+            this.logger.Write(this, string.Format("處理 GET_SITE URL：{0}", url));
+            JOB_WEB jobWeb = new JOB_WEB(webSite);
+            jobWeb.authUser = Central.authUser;
+            jobWeb.domain = MainUrl;
+
+            jobControl.AddJob(jobWeb);
+            t = new Thread(new System.Threading.ThreadStart(jobControl.DoJob));
+            t.Start();
+            while (t.ThreadState != System.Threading.ThreadState.Stopped) {
+                Thread.Sleep(100);
+
+            }
+
+            #endregion GET_SITE
+
+            #region GET_PAGE
+            this.logger.Write(this, string.Format("處理 GET_PAGE URL：{0}", url));
+
+            List<PAGE_INFO> page = jobWeb.page_info;
+            JOB_PAGE jobPage = new JOB_PAGE(page[pageNum]);
+            jobPage.authUser = Central.authUser;
+            jobPage.domain = MainUrl;
+
+            jobControl.AddJob(jobPage);
+            t = new Thread(new System.Threading.ThreadStart(jobControl.DoJob));
+            t.Start();
+            while (t.ThreadState != System.Threading.ThreadState.Stopped) {
+                Thread.Sleep(100);
+
+            }
+
+            #endregion GET_PAGE
+
+            #region GET_THREAD
+            this.logger.Write(this, string.Format("處理 GET_THREAD URL：{0}", url));
+
+            List<JOB_THREAD> threadList = new List<JOB_THREAD>();
+            foreach (THREAD_INFO thread in jobPage.thread_info) {
+                JOB_THREAD jobThread = new JOB_THREAD(thread);
+                jobThread.book_info.pageUrl = thread.page_url;
+                jobThread.authUser = Central.authUser;
+                jobThread.domain = MainUrl;
+
+                threadList.Add(jobThread);
+
+            }
+
+            List<BOOK_INFO> bookInfoList = new List<BOOK_INFO>();
+
+            foreach (JOB_THREAD thread in threadList) {
+                jobControl.AddJob(thread);
+            }
+
+            t = new Thread(new System.Threading.ThreadStart(jobControl.DoJob));
+            t.Start();
+
+            while (t.ThreadState != System.Threading.ThreadState.Stopped) {
+                Thread.Sleep(100);
+
+            }
+
+            foreach (JOB_THREAD thread in threadList) {
+                bookInfoList.Add(thread.book_info);
+
+            }
+
+            #endregion GET_THREAD
+
+            this.BookInfoList = bookInfoList;
+            this.PageCount = jobWeb.page_info.Count;
+
+            this.logger.WriteInfo(string.Format("行動結束進入顯示 URL：{0}", url));
+            this.finish(this, null);
+
+        }
+
+    }
+}

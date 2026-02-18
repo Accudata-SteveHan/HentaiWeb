@@ -1,0 +1,64 @@
+﻿@using System.Data;
+
+<p>處理資料量： @ViewData["EXHENTAI_CNT"] / @ViewData["ALL_CNT"].ToString()</p>
+<p>等待資料量： @ViewData["OBJ_CNT"] / @ViewData["ALL_CNT"].ToString()</p>
+<p>錯誤資料量： @ViewData["ERROR_CNT"] / @ViewData["ALL_CNT"].ToString()</p>
+<p></p>
+<p>
+    <a href="../ADMIN/Refresh">重整資料</a>
+</p>
+
+<p>
+    <table border="1">
+        @{
+            DataTable dataLang = ViewData["TYPE_LANG_CNT"] as DataTable;
+            foreach (DataRow row in dataLang.Rows)
+            {
+                <tr>
+                    <td>@row["LANG"]</td>
+                    <td>@row["CNT_DOUJINSHI"]</td>
+                    <td>@row["CNT_MANGA"]</td>
+                    <td>@row["CNT_NON_H"]</td>
+                </tr>
+            }
+        }
+
+    </table>
+
+    <table border="1">
+        @{
+            DataTable dataStatus = ViewData["STATUS"] as DataTable;
+            foreach (DataRow row in dataStatus.Rows)
+            {
+        <tr>
+            <td>@row["WEB"]</td>
+            <td>@row["LAST_KEY"]</td>
+            <td>@row["PROC_PAGE"]</td>
+            <td>@row["TOTAL_PAGE"]</td>
+            <td>@row["UPDATE_TIME"]</td>
+            @{
+                if (row["WEB"].ToString().StartsWith("EXHENTAI_"))
+                {
+                    <td>
+                        <a href="../../../../CRAW/RESET_EXHENTAI_DATA_MAXKEY/@row["WEB"].ToString().Replace("EXHENTAI_", "")" target="_parent">重置資料水線</a>
+                    </td>
+                    <td>
+                        <a href="../../../../CRAW/RESET_EXHENTAI_DATA_PAGE/@row["WEB"].ToString().Replace("EXHENTAI_", "")" target="_parent">重置處理頁面</a>
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                    <td></td>
+
+                }
+
+
+            }
+        </tr>
+            }
+        }
+
+    </table>
+
+</p>

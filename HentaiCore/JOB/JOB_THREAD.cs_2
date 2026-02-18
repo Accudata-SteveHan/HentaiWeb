@@ -1,0 +1,155 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace HentaiCore {
+    //列表的工作
+    public class JOB_THREAD : JOB {
+        THREAD_INFO thread_info = null;
+        public BOOK_INFO book_info = null;
+
+        public JOB_THREAD(THREAD_INFO threadInfo) {
+            this.thread_info = threadInfo;
+            this.book_info = new BOOK_INFO();
+
+        }
+
+        public void GetBookInfo() {
+            try {
+                this.logger.WriteInfo(string.Format("開始處理文件內容 : {0}", this.thread_info.thread_url));
+
+                //取得 Web
+                string web = this.GetWeb(this.thread_info.thread_url);
+
+                string pKey = this.thread_info.thread_url.Replace(this.domain + "/g/", "").Split('/')[0];
+                string sKey = this.thread_info.thread_url.Replace(this.domain + "/g/", "").Split('/')[1];
+
+                Crawler crawler = new Crawler(web);
+                crawler.mainUrl = this.domain;
+                crawler.pKey = pKey;
+                crawler.sKey = sKey;
+
+                //產生 Book Info
+                this.book_info = new BOOK_INFO(
+                    this.thread_info.thread_url,
+                    pKey, sKey
+                    );
+
+                string par = "";
+                decimal tmpDec;
+
+                this.logger.Write(this, string.Format("處理 Page Url : {0}", this.thread_info.thread_url));
+                //Page Url
+                par = this.thread_info.page_url;
+                this.book_info.pageUrl = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 P_Key : {0}", this.thread_info.thread_url));
+                //P_Key
+                par = pKey;
+                this.book_info.p_key = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 S_Key : {0}", this.thread_info.thread_url));
+                //S_Key
+                par = sKey;
+                this.book_info.s_key = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 EngTitle : {0}", this.thread_info.thread_url));
+                //EngTitle
+                par = crawler.Get_Eng_Title();
+                this.book_info.eng_title = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 UniTitle : {0}", this.thread_info.thread_url));
+                //UniTitle
+                par = crawler.Get_Uni_Title();
+                this.book_info.uni_title = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 Language : {0}", this.thread_info.thread_url));
+                //Language
+                par = crawler.Get_Language();
+                this.book_info.language = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 Type : {0}", this.thread_info.thread_url));
+                //Type
+                par = crawler.Get_Type();
+                this.book_info.type = par != "" ? par : "";
+                //if (this.book_info.type != "") {
+                //    this.CreateType(this.book_info.type);
+                //}
+
+                this.logger.Write(this, string.Format("處理 TotalPage : {0}", this.thread_info.thread_url));
+                //TotalPage
+                par = crawler.Get_Total_Page();
+                this.book_info.total_page = par != "" ? int.Parse(par) : 0;
+
+                this.logger.Write(this, string.Format("處理 TabCount : {0}", this.thread_info.thread_url));
+                //TabCount
+                par = crawler.Get_Tab_Count();
+                this.book_info.tab_count = par != "" ? int.Parse(par) : 0;
+
+                this.logger.Write(this, string.Format("處理 UploadTime : {0}", this.thread_info.thread_url));
+                //UploadTime
+                par = crawler.Get_Upload_Time();
+                book_info.upload_time = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 PostedTime : {0}", this.thread_info.thread_url));
+                //PostedTime
+                par = crawler.Get_Posted_Time();
+                this.book_info.posted_time = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 RateTime : {0}", this.thread_info.thread_url));
+                //RateTime
+                par = crawler.Get_Rate_Time();
+                this.book_info.rate_time = par != "" && decimal.TryParse(par, out tmpDec) ? tmpDec : 0;
+
+                this.logger.Write(this, string.Format("處理 RateAvg : {0}", this.thread_info.thread_url));
+                //RateAvg
+                par = crawler.Get_Rate_Avg();
+                this.book_info.rate_avg = par != "" && decimal.TryParse(par, out tmpDec) ? tmpDec : 0;
+
+                this.logger.Write(this, string.Format("處理 Cover : {0}", this.thread_info.thread_url));
+                //Cover
+                par = crawler.Get_Cover();
+                this.book_info.pic = par != "" ? par : "";
+
+                this.logger.Write(this, string.Format("處理 Cover Stream : {0}", this.thread_info.thread_url));
+                //Cover Stream
+                if (this.book_info.pic != "") {
+                    HTML picHtml = new HTML(this.book_info.pic);
+                    picHtml.webCookie = Central.authUser.loginCookie;
+                    picHtml.cookieContainer = Central.authUser.loginContainer;
+                    picHtml.GetStream();
+
+                    this.book_info.pic_Stream = picHtml.webStream;
+
+                }
+
+            } catch (Exception ex) {
+                this.logger.WriteError(string.Format("JOB_THREAD.GetBookInfo 錯誤，{0}", ex.ToString()));
+
+            }
+
+        }
+
+        //public static BOOK_TYPE[] TypeList = new BOOK_TYPE[]{
+        //       new TYPE_DOUJINSHI() , new TYPE_MANGA() , new TYPE_ARTIST_CG() ,
+        //       new TYPE_GAME_CG() , new TYPE_WESTERN() , new TYPE_NON_H() ,
+        //       new TYPE_IMAGE_SET() ,  new TYPE_COSPLAY(), new TYPE_ASIANPORN() ,
+        //       new TYPE_MISC()};
+
+        //private void CreateType(string type) {
+
+        //    foreach (BOOK_TYPE p in TypeList) {
+        //        if (type.Replace("-", "") == p.GetType().Name.Replace("TYPE_", "").Replace("_", "").ToLower()) {
+        //            this.book_info.typeObj = p;
+        //            break;
+
+        //        }
+
+        //    }
+
+        //}
+
+    }
+    
+}

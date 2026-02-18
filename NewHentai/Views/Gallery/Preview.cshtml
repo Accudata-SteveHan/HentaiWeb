@@ -1,0 +1,129 @@
+﻿@using System.Data
+@using HentaiCore
+
+@{
+    if (ViewData["MSG"] != null)
+    {
+        <p>@ViewData["MSG"].ToString()</p>
+    }
+    else
+    {
+        DataTable dataBook = ViewData["BOOK"] as DataTable;
+        DataRow row = dataBook.Rows[0];
+
+        <table border="1" width="100%">
+            <tr>
+                <td rowspan="6" width="15%" align="center">
+                    <p><img loading="lazy" src='@row["PIC_THUMB"].ToString()' /></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["PKEY"].ToString() _ @row["SKEY"].ToString()</p>
+                    <a href="http://exhentai.org/g/@row["PKEY"].ToString()/@row["SKEY"].ToString()">
+                        原網站 (ExHentai @row["PKEY"].ToString()_@row["SKEY"].ToString() )
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["LANG"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["NAME_UNI"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["NAME_ENG"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["PAGE"].ToString() PAGE</p>
+                </td>
+            </tr>
+
+        </table>
+
+        string strLoadData = "";
+        string webPath = System.Configuration.ConfigurationManager.AppSettings["WebSavePath"].ToString();
+        DataTable dataPic = ViewData["PIC"] as DataTable;
+        int totalPage = int.Parse(row["PAGE"].ToString());
+        string path = Path.Combine(string.Format(Server.MapPath("/{0}/{1}"), webPath, row["PKEY"].ToString().PadLeft(7, '0')), row["PKEY"].ToString());
+
+        if (dataPic.Rows.Count != 0 &&
+            dataPic.Rows.Count != totalPage &&
+            Directory.Exists(path) &&
+            Directory.GetFiles(path).Count() == totalPage)
+        {
+            strLoadData = "馬上閱讀";
+
+        }
+        else
+        {
+            decimal etaTime = Convert.ToDecimal(Math.Ceiling(((20 * totalPage) / 60.0)));
+            strLoadData = string.Format("需等待{0}分鐘", etaTime);
+
+        }
+
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <p><a href="../../../Gallery/DATA/@row["PKEY"].ToString()_@row["SKEY"].ToString()">～@strLoadData～</a></p>
+                </td>
+            </tr>
+        </table>
+
+        if (totalPage > dataPic.Rows.Count)
+        {
+            totalPage = dataPic.Rows.Count;
+
+        }
+
+        <table border="0" width="100%">
+            <tr>
+                @{
+                    for (int i = 0; i < totalPage / 2; i++)
+                    {
+                        DataRow rowPic = dataPic.Rows[i];
+                        string url = System.Configuration.ConfigurationManager.AppSettings["BasePage"].ToString();
+
+                        <td>
+                            <p align="center">
+                                <img loading="lazy" width="70%" src="@url/@rowPic["SAVE_PATH"].ToString()" />
+                            </p>
+                        </td>
+
+                    }
+
+                }
+            </tr>
+            <tr>
+                @{
+                    for (int i = (totalPage / 2) + 1; i < totalPage; i++)
+                    {
+                        DataRow rowPic = dataPic.Rows[i];
+                        string url = System.Configuration.ConfigurationManager.AppSettings["BasePage"].ToString();
+
+                        <td>
+                            <p align="center">
+                                <img loading="lazy" width="70%" src="@url/@rowPic["SAVE_PATH"].ToString()" />
+                            </p>
+                        </td>
+
+                    }
+
+                }
+            </tr>
+        </table>
+
+    }
+
+}
+
+
+
+

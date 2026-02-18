@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace HentaiCore {
+    //頁面的工作
+    public class JOB_PAGE : JOB {
+        PAGE_INFO page_info = null;
+        public List<THREAD_INFO> thread_info = null;
+
+        public JOB_PAGE(PAGE_INFO pageInfo) {
+            this.page_info = pageInfo;
+            this.thread_info = new List<THREAD_INFO>();
+
+        }
+
+        public void GetThreadList() {
+            try {
+                //檢查輸入 PAGE INFO是否輸入
+                if (this.page_info == null) {
+                    throw new Exception("PAGE_INFO = null");
+                }
+
+                this.logger.WriteInfo(string.Format("開始處理列表頁面 : {0}", this.page_info.page_url));
+
+
+                //取得網頁資料
+                string html = this.GetWeb(this.page_info.page_url);
+                //如果是 exHentai 的話要在讀取一次頁面
+                if (this.page_info.page_url.Contains("exhentai")) {
+                    html = this.GetWeb(this.page_info.page_url);
+
+                }
+
+                this.logger.Write(this, string.Format("開始分析列表 : {0}", this.page_info.page_url));
+                //處理 Crawler RollList
+                Crawler crawler = new Crawler(html);
+                List<string> threadStrList = crawler.RollList();
+
+                this.logger.Write(this, string.Format("完成分析列表 : {0}", this.page_info.page_url));
+
+                //組成 Thread List
+                foreach (string thread in threadStrList) {
+                    THREAD_INFO threadInfo = new THREAD_INFO(thread);
+                    threadInfo.page_url = this.page_info.page_url;
+
+                    this.thread_info.Add(threadInfo);
+
+                }
+
+                //組成 Thread List Count
+                this.page_info.page_threadCount = this.thread_info.Count;
+
+                this.logger.WriteInfo(string.Format("完成處理列表頁面 : {0} 總數：{1}", this.page_info.page_url, this.thread_info.Count));
+
+            } catch (Exception ex) {
+                this.logger.WriteError(string.Format("JOB_PAGE.GetThreadList 錯誤，{0}", ex.ToString()));
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,98 @@
+﻿@using System.Data
+@using HentaiCore
+
+@{
+    int groupPic = 10;
+    int nowPic = 0;
+
+    if (ViewData["MSG"] != null)
+    {
+        <p>@ViewData["MSG"].ToString()</p>
+    }
+    else
+    {
+        DataTable dataBook = ViewData["BOOK"] as DataTable;
+        DataRow row = dataBook.Rows[0];
+
+        <table border="1" width="100%">
+            <tr>
+                <td rowspan="5">
+                    <p><img loading="lazy" src='@row["PIC_THUMB"].ToString()' /></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["PKEY"].ToString() _ @row["SKEY"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["LANG"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["NAME_UNI"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["NAME_ENG"].ToString()</p>
+                </td>
+            </tr>
+
+        </table>
+
+        DataTable dataPic = ViewData["PIC"] as DataTable;
+
+        int totalPage = int.Parse(row["PAGE"].ToString());
+
+        if (totalPage > dataPic.Rows.Count)
+        {
+            totalPage = dataPic.Rows.Count;
+
+        }
+        
+        for (int i = 0; i < Convert.ToInt32(Math.Ceiling((decimal)totalPage / groupPic)); i++)
+        {
+            <p></p>
+            <table align="center" width="95%">
+            @{
+                for (int j = 0; j < groupPic; j++)
+                {
+                    if ((i * groupPic + j) >= totalPage)
+                    {
+                        break;
+
+                    }
+
+                    int k = i * groupPic + j;
+
+                    DataRow rowPic = dataPic.Rows[k];
+                    string url = System.Configuration.ConfigurationManager.AppSettings["BasePage"].ToString();
+
+                    <tr>
+                        <td>
+                            <p>
+                                <!--<a href="@url.ToString()/@rowPic["SAVE_PATH"].ToString().Replace("Image", "ReImage")">-->
+                                    <img style="border:1px solid lightgray;" loading="lazy" width="100%" src="@url/@rowPic["SAVE_PATH"].ToString()" />
+                                <!--</a>-->
+                            </p>
+                        </td>
+                    </tr>
+
+                }
+
+            }
+
+            </table>
+
+        }
+
+    }
+
+}
+        
+
+
+

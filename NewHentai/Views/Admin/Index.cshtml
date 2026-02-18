@@ -1,0 +1,646 @@
+﻿@using System.Data;
+
+<table border="1" width="50%" align="center">
+    <tr>
+        <td align="center">
+            <p>
+                <a href="Summary">
+                    統計_總覽
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="Group">
+                    統計_群組
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="Melon_Group">
+                    統計_蜜瓜
+                </a>
+            </p>
+        </td>
+    </tr>
+</table>
+<p>
+
+</p>
+<table border="1" width="95%" align="center">
+    <tr>
+        <td align="center">
+            ALL
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/GET_EXHENTAI_GALLERY">
+                    建立<br>頁面清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/GET_EXHENTAI_GALLERY_DETAIL">
+                    建立<br>頁面檔案清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/GET_EXHENTAI_DATA_DETAIL">
+                    建立檔案資料<br>自取
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/GET_EXHENTAI_API_DETAIL">
+                    建立檔案資料<br>API
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/GET_EXHENTAI_DATAALL_DETAIL">
+                    建立檔案資料<br>全部
+                </a>
+            </p>
+        </td>
+        <td align="center"></td>
+    </tr>
+    <tr>
+        <td align="center">
+            MANGA
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWMANGA/GET_EXHENTAI_GALLERY">
+                    建立<br>頁面清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWMANGA/GET_EXHENTAI_GALLERY_DETAIL">
+                    建立<br>頁面檔案清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWMANGA/GET_EXHENTAI_DATA_DETAIL">
+                    建立檔案資料<br>自取
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWMANGA/GET_EXHENTAI_API_DETAIL">
+                    建立檔案資料<br>API
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWMANGA/GET_EXHENTAI_DATAALL_DETAIL">
+                    建立檔案資料<br>全部
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_PAGE/MANGA">
+                    重置處理頁面
+                </a>
+                <br>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_MAXKEY/MANGA">
+                    重設資料水線
+                </a>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            DOUJINSHI
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWDOUJINSHI/GET_EXHENTAI_GALLERY">
+                    建立<br>頁面清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWDOUJINSHI/GET_EXHENTAI_GALLERY_DETAIL">
+                    建立<br>頁面檔案清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWDOUJINSHI/GET_EXHENTAI_DATA_DETAIL">
+                    建立檔案資料<br>自取
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWDOUJINSHI/GET_EXHENTAI_API_DETAIL">
+                    建立檔案資料<br>API
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWDOUJINSHI/GET_EXHENTAI_DATAALL_DETAIL">
+                    建立檔案資料<br>全部
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_PAGE/DOUJINSHI">
+                    重置處理頁面
+                </a>
+                <br>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_MAXKEY/DOUJINSHI">
+                    重設資料水線
+                </a>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            NON-H
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWNONH/GET_EXHENTAI_GALLERY">
+                    建立<br>頁面清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWNONH/GET_EXHENTAI_GALLERY_DETAIL">
+                    建立<br>頁面檔案清單
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWNONH/GET_EXHENTAI_DATA_DETAIL">
+                    建立檔案資料<br>自取
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWNONH/GET_EXHENTAI_API_DETAIL">
+                    建立檔案資料<br>API
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAWNONH/GET_EXHENTAI_DATAALL_DETAIL">
+                    建立檔案資料<br>全部
+                </a>
+            </p>
+        </td>
+        <td align="center">
+            <p>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_PAGE/NON-H">
+                    重置處理頁面
+                </a>
+                <br>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_MAXKEY/NON-H">
+                    重設資料水線
+                </a>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"></td>
+        <td align="center" colspan="2">
+            <p>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_ERROR_CODE">
+                    重設所有錯誤
+                </a>
+            </p>
+        </td>
+        <td align="center" colspan="2">
+            <p>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_PAGE">
+                    重設所有處理頁面
+                </a>
+            </p>
+        </td>
+        <td align="center" colspan="2">
+            <p>
+                <a href="../CRAW/RESET_EXHENTAI_DATA_MAXKEY">
+                    重設所有資料水線
+                </a>
+            </p>
+        </td>
+    </tr>
+</table>
+<p>
+
+</p>
+<table border="1" width="90%" align="center">
+    <tr>
+        <td align="center"></td>
+        <td align="center">
+            ALL
+        </td>
+        <td align="center" colspan="3">
+            MANGA
+        </td>
+        <td align="center" colspan="3">
+            DOUJINSHI
+        </td>
+        <td align="center" colspan="3">
+            NON-H
+        </td>
+    </tr>
+    <tr>
+        <td align="center" height="30px">
+            連續
+        </td>
+        <td align="center" width="15%">
+            <a href="../Browse/Index/ALL/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/manga/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/manga/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/manga/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/doujinshi/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/doujinshi/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/doujinshi/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/non-h/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/non-h/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center" width="8%">
+            <a href="../Browse/Index/non-h/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" height="30px">
+            分頁
+        </td>
+        <td align="center">
+            <a href="../Browse/View/ALL/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/manga/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/manga/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/manga/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/doujinshi/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/doujinshi/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/doujinshi/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/non-h/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/non-h/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/View/non-h/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" height="30px">
+            MelonBook
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/ALL/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/manga/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/manga/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/manga/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/doujinshi/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/doujinshi/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/doujinshi/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/non-h/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/non-h/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/non-h/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" height="30px">
+            特徵
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/ALL/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/manga/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/manga/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/manga/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/doujinshi/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/doujinshi/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/doujinshi/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/non-h/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/non-h/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/Display/non-h/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+</table>
+
+<p>
+
+</p>
+
+<table border="1" width="80%" align="center">
+    <tr>
+        <td align="center" />
+        <td align="center" colspan="3">
+            MelonBook
+        </td>
+        <td align="center" colspan="3">
+            MapMelonBook
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            ALL
+        </td>
+        <td align="center" width="15%">
+            <a href="../Browse/MelonBook/ALL/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center" width="15%">
+            <a href="../Browse/MelonBook/ALL/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center" width="15%">
+            <a href="../Browse/MelonBook/ALL/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center" width="15%">
+            <a href="../Browse/MapMelonBook/ALL/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center" width="15%">
+            <a href="../Browse/MapMelonBook/ALL/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center" width="15%">
+            <a href="../Browse/MapMelonBook/ALL/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            MANGA
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/manga/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/manga/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/manga/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/manga/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/manga/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/manga/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            DOUJINSHI
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/doujinshi/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/doujinshi/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/doujinshi/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/doujinshi/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/doujinshi/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/doujinshi/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">
+            NON-H
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/non-h/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/non-h/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MelonBook/non-h/Japanese">
+                JP
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/non-h/ALL">
+                ALL
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/non-h/Chinese">
+                CH
+            </a>
+        </td>
+        <td align="center">
+            <a href="../Browse/MapMelonBook/non-h/Japanese">
+                JP
+            </a>
+        </td>
+    </tr>
+</table>

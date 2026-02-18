@@ -1,0 +1,211 @@
+﻿@using System.Data
+
+<div class="article">
+    <table border="1" width="100%">
+        @{
+            DataTable data = ViewData["DATA"] as DataTable;
+            for (int i = 0; i < data.Rows.Count; i += 5)
+            {
+                DataRow row1 = null,row2 = null,row3 = null,row4 = null,row5 = null;
+                if (i + 0 < data.Rows.Count)
+                {
+                    row1 = data.Rows[i + 0];
+
+                }
+                if (i + 1 < data.Rows.Count)
+                {
+                    row2 = data.Rows[i + 1];
+
+                }
+                if (i + 2 < data.Rows.Count)
+                {
+                    row3 = data.Rows[i + 2];
+
+                }
+                if (i + 3 < data.Rows.Count)
+                {
+                    row4 = data.Rows[i + 3];
+
+                }
+                if (i + 4 < data.Rows.Count)
+                {
+                    row5 = data.Rows[i + 4];
+
+                }
+
+                <tr>
+                    @{
+                        if (row1 != null)
+                        {
+                            <td width="20%">
+                                <p align="center">
+                                    <img loading="lazy" src='@row1["PIC_DISPLAY"].ToString()' width="75%"
+                                         title="@row1["NAME_DISPLAY"].ToString()" />
+                                </p>
+                                <p align="center">@row1["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row1["TYPE"].ToString()</p>
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row2 != null)
+                        {
+                            <td width="20%">
+                                <p align="center">
+                                    <img loading="lazy" src='@row2["PIC_DISPLAY"].ToString()' width="75%"
+                                         title="@row2["NAME_DISPLAY"].ToString()" />
+                                </p>
+                                <p align="center">@row2["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row2["TYPE"].ToString()</p>
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row3 != null)
+                        {
+                            <td width="20%">
+                                <p align="center">
+                                    <img loading="lazy" src='@row3["PIC_DISPLAY"].ToString()' width="75%"
+                                         title="@row3["NAME_DISPLAY"].ToString()" />
+                                </p>
+                                <p align="center">@row3["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row3["TYPE"].ToString()</p>
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row4 != null)
+                        {
+                            <td width="20%">
+                                <p align="center">
+                                    <img loading="lazy" src='@row4["PIC_DISPLAY"].ToString()' width="75%"
+                                         title="@row4["NAME_DISPLAY"].ToString()" />
+                                </p>
+                                <p align="center">@row4["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row4["TYPE"].ToString()</p>
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row5 != null)
+                        {
+                            <td width="20%">
+                                <p align="center">
+                                    <img loading="lazy" src='@row5["PIC_DISPLAY"].ToString()' width="75%"
+                                         title="@row5["NAME_DISPLAY"].ToString()" />
+                                </p>
+                                <p align="center">@row5["PAGE"].ToString() PAGE</p>
+                                <p align="center">@row5["TYPE"].ToString()</p>
+
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                    }
+                </tr>
+                <tr>
+                    @{
+                        if (row1 != null)
+                        {
+                            <td width="20%">
+                                <p>@row1["NAME_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row2 != null)
+                        {
+                            <td width="20%">
+                                <p>@row2["NAME_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row3 != null)
+                        {
+                            <td width="20%">
+                                <p>@row3["NAME_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row4 != null)
+                        {
+                            <td width="20%">
+                                <p>@row4["NAME_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                        if (row5 != null)
+                        {
+                            <td width="20%">
+                                <p>@row5["NAME_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td width="20%"></td>
+
+                        }
+
+                    }
+                </tr>
+
+            }
+
+        }
+
+    </table>
+
+</div>

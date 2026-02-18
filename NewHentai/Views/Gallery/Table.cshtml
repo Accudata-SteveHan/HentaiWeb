@@ -1,0 +1,209 @@
+﻿@using System.Data
+
+@{
+    string type = ViewData["TYPE"] != null ? ViewData["TYPE"].ToString() : "";
+    
+}
+
+@{
+    if(type == "" || type == "INDEX") {
+        DataTable dataMain = ViewData["INDEX"] as DataTable;
+
+        dataMain.Columns.Add("P", typeof(int), "PKEY");
+        DataView view = dataMain.DefaultView;
+        view.Sort = "P DESC";
+        dataMain = view.ToTable();
+        <table border="1">
+            @{
+                <tr>
+                    @foreach (DataColumn col in dataMain.Columns)
+                    {
+                        <td>@col.ColumnName.ToString()</td>
+
+                    }
+
+                </tr>
+
+                foreach (DataRow row in dataMain.Rows)
+                {
+                    DataRow[] mainRows = dataMain.Select(string.Format("PKEY= '{0}'", row["PKEY"]));
+
+                    <tr>
+                        @foreach (DataColumn col in dataMain.Columns)
+                        {
+                            DateTime t;
+
+                            if (col.DataType == typeof(DateTime)
+                                && DateTime.TryParse(row[col].ToString(), out t))
+                            {
+                                string val = t.ToString("yyyy/MM/dd HH:mm:ss");
+                                <td>@val</td>
+                            }
+                            else
+                            {
+                                <td>@row[col].ToString()</td>
+                            }
+
+                        }
+
+                    </tr>
+
+                }
+
+            }
+
+        </table>
+
+    }
+
+}
+
+@{
+    if(type == "" || type == "DATA") {
+        DataTable data = ViewData["DATA"] as DataTable;
+
+        data.Columns.Add("P", typeof(int), "PKEY");
+        DataView view = data.DefaultView;
+        view.Sort = "P DESC";
+        DataTable dataMain = view.ToTable();
+        <table border="1">
+            @{
+                <tr>
+                    @foreach (DataColumn col in data.Columns)
+                    {
+                        <td>@col.ColumnName.ToString()</td>
+
+                    }
+
+                </tr>
+
+                foreach (DataRow row in data.Rows)
+                {
+                    DataRow[] mainRows = dataMain.Select(string.Format("PKEY= '{0}'", row["PKEY"]));
+
+                    <tr>
+                        @foreach (DataColumn col in data.Columns)
+                        {
+                            DateTime t;
+
+                            if (col.DataType == typeof(DateTime)
+                                && DateTime.TryParse(row[col].ToString(), out t))
+                            {
+                                string val = t.ToString("yyyy/MM/dd HH:mm:ss");
+                                <td>@val</td>
+                            }
+                            else
+                            {
+                                <td>@row[col].ToString()</td>
+                            }
+
+                        }
+
+                    </tr>
+
+                }
+
+            }
+
+        </table>
+
+    }
+
+}
+
+@{
+    if(type == "" || type == "WEB") {
+        DataTable dataWeb = ViewData["WEB"] as DataTable;
+
+        <table border="1">
+        @{
+            <tr>
+                @foreach (DataColumn col in dataWeb.Columns)
+                {
+                    <td>@col.ColumnName.ToString()</td>
+
+                }
+
+            </tr>
+
+            foreach (DataRow row in dataWeb.Rows)
+            {
+                <tr>
+                    @foreach (DataColumn col in dataWeb.Columns)
+                    {
+                        DateTime t;
+
+                        if (col.DataType == typeof(DateTime)
+                            && DateTime.TryParse(row[col].ToString(), out t))
+                        {
+                            string val = t.ToString("yyyy/MM/dd HH:mm:ss");
+                            <td>@val</td>
+                        }
+                        else
+                        {
+                            <td>@row[col].ToString()</td>
+                        }
+
+                    }
+
+                </tr>
+
+            }
+
+        }
+
+    </table>
+
+    }
+
+}
+
+@{
+    if(type == ""|| type == "OBJECT") {
+        DataTable dataObject = ViewData["OBJECT"] as DataTable;
+
+        DataView view = dataObject.DefaultView;
+        view.Sort = "PKEY DESC";
+        dataObject = view.ToTable();
+        <table border="1">
+        @{
+            <tr>
+                @foreach (DataColumn col in dataObject.Columns)
+                {
+                    <td>@col.ColumnName.ToString()</td>
+
+                }
+
+            </tr>
+
+            foreach (DataRow row in dataObject.Rows)
+            {
+                <tr>
+                    @foreach (DataColumn col in dataObject.Columns)
+                    {
+                        DateTime t;
+
+                        if (col.DataType == typeof(DateTime)
+                            && DateTime.TryParse(row[col].ToString(), out t))
+                        {
+                            string val = t.ToString("yyyy/MM/dd HH:mm:ss");
+                            <td>@val</td>
+                        }
+                        else
+                        {
+                            <td>@row[col].ToString()</td>
+                        }
+
+                    }
+
+                </tr>
+
+            }
+
+        }
+
+    </table>
+
+    }
+
+}

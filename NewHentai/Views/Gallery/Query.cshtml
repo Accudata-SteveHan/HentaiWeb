@@ -1,0 +1,50 @@
+﻿@using System.Data
+
+@{
+    DataTable data = ViewData["DATA"] as DataTable;
+
+    DataView view = data.DefaultView;
+    view.Sort = "PKEY";
+
+    DataTable display = view.ToTable();
+
+}
+
+<table border="1">
+    @{
+        <tr>
+            @foreach (DataColumn col in display.Columns)
+            {
+                <td>@col.ColumnName.ToString()</td>
+
+            }
+
+        </tr>
+
+        foreach (DataRow row in display.Rows)
+        {
+            <tr>
+                @foreach (DataColumn col in display.Columns)
+                {
+                    DateTime t;
+
+                    if (col.DataType == typeof(DateTime)
+                        && DateTime.TryParse(row[col].ToString() , out t))
+                    {
+                        string val = t.ToString("yyyy/MM/dd HH:mm:ss");
+                        <td>@val</td>
+                    }
+                    else
+                    {
+                        <td>@row[col].ToString()</td>
+                    }
+
+                }
+
+            </tr>
+
+        }
+
+    }
+
+</table>

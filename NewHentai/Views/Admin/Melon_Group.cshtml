@@ -1,0 +1,49 @@
+﻿@using System.Data;
+
+<p>
+    <table border="1" width="3500px">
+        <tr>
+            @{
+                DataTable data = ViewData["TYPE_CNT"] as DataTable;
+
+                DataTable colType = data.DefaultView.ToTable(true, new string[] { "GR" });
+                DataTable colP = data.DefaultView.ToTable(true, new string[] { "CAT" });
+
+                <td>P</td>
+                foreach (DataRow row in colType.Rows)
+                {
+                    <td>@row["GR"]</td>
+
+                }
+
+            }
+        </tr>
+        @{
+            foreach (DataRow row in colP.Rows)
+            {
+                <tr>
+                    <td>@row["CAT"]</td>
+                    @{
+                        foreach (DataRow rowT in colType.Rows)
+                        {
+                            DataRow[] rows = data.Select(string.Format("CAT = '{0}' and GR = '{1}'", row["CAT"], rowT["GR"]));
+                            if (rows.Length > 0)
+                            {
+                                <td>@rows[0]["CNT"]</td>
+
+                            }
+                            else
+                            {
+                                <td>0</td>
+
+                            }
+                        }
+
+                    }
+                </tr>
+            }
+        }
+
+    </table>
+
+</p>

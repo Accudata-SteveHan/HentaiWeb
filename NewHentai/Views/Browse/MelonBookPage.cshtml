@@ -1,0 +1,295 @@
+﻿@using System.Data
+
+<div class="article">
+    @{
+        if (ViewData["MSG"] != null)
+        {
+            @ViewData["MSG"]
+
+        }
+        else
+        {
+            string lang = ViewData["LANG"].ToString();
+            string type = ViewData["TYPE"].ToString();
+
+            <table border="1" width="100%">
+                @{
+                    DataTable dataMain = ViewData["DATA"] as DataTable;
+
+                    for (int i = 0; i < dataMain.Rows.Count; i += 4)
+                    {
+                        DataRow row1 = null, row2 = null, row3 = null, row4 = null;
+                        if (i + 0 < dataMain.Rows.Count)
+                        {
+                            row1 = dataMain.Rows[i + 0];
+
+                        }
+                        if (i + 1 < dataMain.Rows.Count)
+                        {
+                            row2 = dataMain.Rows[i + 1];
+
+                        }
+                        if (i + 2 < dataMain.Rows.Count)
+                        {
+                            row3 = dataMain.Rows[i + 2];
+
+                        }
+                        if (i + 3 < dataMain.Rows.Count)
+                        {
+                            row4 = dataMain.Rows[i + 3];
+
+                        }
+
+                        <tr>
+                            @{
+                                if (row1 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">
+                                            <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row1["ID"].ToString()" target="_parent">
+                                                @row1["ID"].ToString()
+                                            </a>
+                                        </p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row2 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">
+                                            <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row2["ID"].ToString()" target="_parent">
+                                                @row2["ID"].ToString()
+                                            </a>
+                                        </p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row3 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">
+                                            <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row3["ID"].ToString()" target="_parent">
+                                                @row3["ID"].ToString()
+                                            </a>
+                                        </p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row4 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">
+                                            <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row4["ID"].ToString()" target="_parent">
+                                                @row4["ID"].ToString()
+                                            </a>
+                                        </p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                            }
+                        </tr>
+                        <tr>
+                            @{
+                                if (row1 != null)
+                                {
+                                    string url = "../../../../../Browse/MelonBookDetail" + "/" + type + "/" + lang + "/" + row1["ID"].ToString();
+                                    <td width="25%">
+                                        <p align="center">
+                                            @{
+                                                if (row1["IMAGE"] != DBNull.Value && row1["IMAGE"].ToString() != "")
+                                                {
+                                                    <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row1["ID"].ToString()" target="_parent">
+                                                        <img loading="lazy" src='@row1["IMAGE"].ToString()' width="90%" />
+                                                    </a>
+
+                                                }
+                                            }
+                                        </p>
+                                        <p align="center">
+                                            <a href="@url" target="_parent">@row1["TITLE"].ToString()</a>
+                                        </p>
+
+                                    </td>
+                            
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row2 != null)
+                                {
+                                    string url = "../../../../../Browse/MelonBookDetail" + "/" + type + "/" + lang + "/" + row2["ID"].ToString();
+                                    <td width="25%">
+                                        <p align="center">
+                                            @{
+                                                if (row2["IMAGE"] != DBNull.Value && row2["IMAGE"].ToString() != "")
+                                                {
+                                                    <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row2["ID"].ToString()" target="_parent">
+                                                        <img loading="lazy" src='@row2["IMAGE"].ToString()' width="90%" />
+                                                    </a>
+
+                                                }
+                                            }
+                                        </p>
+                                        <p align="center">
+                                            <a href="@url" target="_parent">@row2["TITLE"].ToString()</a>
+                                        </p>
+                                    </td>
+                            
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row3 != null)
+                                {
+                                    string url = "../../../../../Browse/MelonBookDetail" + "/" + type + "/" + lang + "/" + row3["ID"].ToString();
+                                    <td width="25%">
+                                        <p align="center">
+                                            @{
+                                                if (row3["IMAGE"] != DBNull.Value && row3["IMAGE"].ToString() != "")
+                                                {
+                                                    <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row3["ID"].ToString()" target="_parent">
+                                                        <img loading="lazy" src='@row3["IMAGE"].ToString()' width="90%" />
+                                                    </a>
+
+                                                }
+                                            }
+                                        </p>
+                                        <p align="center">
+                                            <a href="@url" target="_parent">@row3["TITLE"].ToString()</a>
+                                        </p>
+                                    </td>
+                            
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row4 != null)
+                                {
+                                    string url = "../../../../../Browse/MelonBookDetail" + "/" + type + "/" + lang + "/" + row4["ID"].ToString();
+                                    <td width="25%">
+                                        <p align="center">
+                                            @{
+                                                if (row4["IMAGE"] != DBNull.Value && row4["IMAGE"].ToString() != "")
+                                                {
+                                                    <a href="https://www.melonbooks.co.jp/detail/detail.php?adult_view=1&product_id=@row4["ID"].ToString()" target="_parent">
+                                                        <img loading="lazy" src='@row4["IMAGE"].ToString()' width="90%" />
+                                                    </a>
+
+                                                }
+                                            }
+                                        </p>
+                                        <p align="center">
+                                            <a href="@url" target="_parent">@row4["TITLE"].ToString()</a>
+                                        </p>
+                                    </td>
+                            
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                            }
+
+                        </tr>
+                        <tr>
+                            @{
+                                if (row1 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">@row1["PAGE"].ToString() PAGE</p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row2 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">@row2["PAGE"].ToString() PAGE</p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row3 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">@row3["PAGE"].ToString() PAGE</p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+
+                                if (row4 != null)
+                                {
+                                    <td width="25%">
+                                        <p align="center">@row4["PAGE"].ToString() PAGE</p>
+                                    </td>
+
+                                }
+                                else
+                                {
+                                    <td width="25%"></td>
+
+                                }
+                        
+                            }
+                        </tr>
+
+                    }
+
+                }
+
+            </table>
+
+        }
+    }
+
+</div>

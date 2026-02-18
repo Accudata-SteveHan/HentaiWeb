@@ -1,0 +1,73 @@
+﻿<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/3.0.3/infinite-scroll.pkgd.min.js"></script>
+
+<div class="container">
+    <div class="article"></div>
+    <!--
+    <div class="scroller-status">
+        <div class="infinite-scroll-request loader-ellips"></div>
+        <p class="infinite-scroll-last">開始加載</p>
+        <p class="infinite-scroll-error">沒有頁面可以讀取了</p>
+    </div>
+    -->
+    <div class="page-load-status">
+        <div class="loader-ellips infinite-scroll-request">
+            <span class="loader-ellips__dot"></span>
+            <span class="loader-ellips__dot"></span>
+            <span class="loader-ellips__dot"></span>
+            <span class="loader-ellips__dot"></span>
+        </div>
+        <p class="infinite-scroll-last">開始加載</p>
+        <p class="infinite-scroll-error">沒有頁面可以讀取了</p>
+    </div>
+</div>
+<p><button class="view-more-button">View more</button></p>
+
+@{
+    string lang = ViewData["LANG"].ToString();
+    string type = ViewData["TYPE"].ToString();
+    string page = ViewData["PAGE"].ToString();
+
+    if (page == "ALL")
+    {
+        page = "0";
+    }
+
+    <input type="hidden" id="LANG" class="hidden" value="@lang" />
+    <input type="hidden" id="TYPE" class="hidden" value="@type" />
+    <input type="hidden" id="PAGE" class="hidden" value="@page" />
+
+}
+
+<script type="text/javascript">
+    var infScroll = new InfiniteScroll(
+        '.container',
+        {
+            path: function () {
+                {
+                    var lang = $('#LANG').val();
+                    var type = $('#TYPE').val();
+                    var page = $('#PAGE').val();
+
+                    if (this.loadCount == 0) {
+                        this.loadCount = parseInt(page) + 1;
+
+                    }
+
+                    var pageNumber = this.loadCount - 1;
+                    /*return "http://henweb.ddns.net:16161/Browse/Page/" + type + "/" + lang + "/" + pageNumber;*/
+                    return "http://localhost:62067/Browse/Page/" + type + "/" + lang + "/" + pageNumber;
+                }
+            },
+            prefill: 'true',
+            scrollThreshold: false,
+            /*scrollThreshold: '3000',*/
+            /*scrollThreshold: '500',*/
+            button: '.view-more-button',
+            append: '.article',
+            history: 'false',
+            status: '.page-load-status'
+            /*status: '.scroller-status'*/
+        }
+    )
+</script>

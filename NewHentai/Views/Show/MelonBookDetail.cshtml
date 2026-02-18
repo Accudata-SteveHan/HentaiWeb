@@ -1,0 +1,216 @@
+﻿@using System.Data
+
+@{
+    if (ViewData["MSG"] != null)
+    {
+        @ViewData["MSG"]
+
+    }
+
+    DataTable dataBook = ViewData["BOOK"] as DataTable;
+    foreach (DataRow row in dataBook.Rows)
+    {
+        string imgUrl = row["IMAGE"].ToString() + "&width = 300";
+        <table align="center" border="1" width="80%">
+            <tr>
+                <td rowspan="5" width="50%" align="center">
+                    <p><img width="100%" loading="lazy" src='@imgUrl' /></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["TITLE"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["AUTHOR"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["DATE"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["PAGE"].ToString() PAGE</p>
+                </td>
+            </tr>
+
+        </table>
+
+    }
+    
+    DataTable dataTag = ViewData["TAG"] as DataTable;
+
+    <table border="1" width="100%">
+        @{
+            for (int x = 0; x < dataTag.Rows.Count / 4; x++)
+            {
+                <tr>
+                    @{
+                        for (int y = 4 * x; y < 4 * (x + 1); y++)
+                        {
+                            if (y >= dataTag.Rows.Count)
+                            {
+                                break;
+
+                            }
+
+                            DataRow tagRow = dataTag.Rows[y];
+
+                            string baseUrl = HttpContext.Current.Request.Url.ToString().Replace(HttpContext.Current.Request.Url.AbsolutePath, "");
+                            string absolutePath = HttpContext.Current.Request.Url.AbsolutePath;
+
+                            //"Melon/MelonBookTag/1E9D8160AE926B78B2D819F5197B8DFA/non-h/ALL";
+                            //"Browse/MelonBookDetail/non-h/ALL/1079360
+
+                            string path =
+                                string.Format(
+                                    "{0}/MELONSHOW/MelonBookTag/{4}/{1}/{2}/{3}",
+                                baseUrl, tagRow["GUID"].ToString(), ViewData["TYPE"], ViewData["LANG"], ViewData["KEY"]
+                                );
+
+                            <td width="25%" align="center">
+                                <p><a href='@path' />@tagRow["TAG_DISPLAY"].ToString()</p>
+                            </td>
+
+                        }
+                    }
+
+                </tr>
+            }
+        }
+
+    </table>
+
+    DataTable dataRef = ViewData["TOP"] as DataTable;
+
+    <table border="1" width="100%">
+        @{
+            for (int x = 0; x < dataRef.Rows.Count / 5; x++)
+            {
+                <tr>
+                    @{
+                        for (int y = 5 * x; y < 5 * (x + 1); y++)
+                        {
+                            if (y >= dataTag.Rows.Count)
+                            {
+                                break;
+
+                            }
+
+                            DataRow refRow = dataRef.Rows[y];
+
+                            string baseUrl = HttpContext.Current.Request.Url.ToString().Replace(HttpContext.Current.Request.Url.AbsolutePath, "");
+                            string absolutePath = HttpContext.Current.Request.Url.AbsolutePath;
+
+                            //"Melon/MelonBookTag/1E9D8160AE926B78B2D819F5197B8DFA/non-h/ALL";
+                            //"Browse/MelonBookDetail/non-h/ALL/1079360
+
+                            /*
+                            string path =
+                                string.Format(
+                                    "{0}/Melon/MelonBookTag/{1}/{2}/{3}",
+                                baseUrl, tagRow["GUID"].ToString(), ViewData["TYPE"], ViewData["LANG"]
+                                );
+                            */
+
+                            <td width="20%" align="center">
+                                <p><a href="../../@ViewData["TYPE"]/@ViewData["LANG"]/@refRow["ID"].ToString()"><img width="50%" src='@refRow["IMAGE"]' /></a></p>
+                            </td>
+
+                        }
+                    }
+
+                </tr>
+            }
+        }
+
+    </table>
+
+    DataTable dataDetail = ViewData["DETAIL"] as DataTable;
+
+    foreach (DataRow row in dataDetail.Rows)
+    {
+        string title = "";
+
+        if (row["NAME_UNI"].ToString().Length > 0)
+        {
+            title = row["NAME_UNI"].ToString();
+        }
+        else
+        {
+            title = row["NAME_ENG"].ToString();
+        }
+
+        <table border="1" width="100%">
+            <tr>
+                <td rowspan="6" width="15%" align="center">
+                    <p><img loading="lazy" src='@row["PIC_THUMB"].ToString()' /></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["PKEY"].ToString() _ @row["SKEY"].ToString()</p>
+                    <a href="http://exhentai.org/g/@row["PKEY"].ToString()/@row["SKEY"].ToString()">
+                        原網站 (ExHentai @row["PKEY"].ToString()_@row["SKEY"].ToString() )
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["LANG"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["NAME_UNI"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["NAME_ENG"].ToString()</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>@row["PAGE"].ToString() PAGE</p>
+                </td>
+            </tr>
+
+        </table>
+
+        string strLoadData = "";
+        string webPath = System.Configuration.ConfigurationManager.AppSettings["WebSavePath"].ToString();
+        DataTable dataPic = ViewData["PIC"] as DataTable;
+        int totalPage = int.Parse(row["PAGE"].ToString());
+        string path = Path.Combine(string.Format(Server.MapPath("/{0}/{1}"), webPath, row["PKEY"].ToString().PadLeft(7, '0')), row["PKEY"].ToString());
+
+        if (dataPic.Select(string.Format("PKEY = '{0}' and SKEY = '{1}'", row["PKEY"].ToString(), row["SKEY"].ToString())).Length != 0 &&
+            dataPic.Select(string.Format("PKEY = '{0}' and SKEY = '{1}'", row["PKEY"].ToString(), row["SKEY"].ToString())).Length != totalPage &&
+            Directory.Exists(path) &&
+            Directory.GetFiles(path).Count() == totalPage)
+        {
+            strLoadData = "馬上閱讀";
+
+        }
+        else
+        {
+            decimal etaTime = Convert.ToDecimal(Math.Ceiling(((20 * totalPage) / 60.0)));
+            strLoadData = string.Format("需等待{0}分鐘", etaTime);
+
+        }
+
+        <table width="100%">
+            <tr>
+                <td align="center">
+                    <p><a href="../../../../../Gallery/DATA/@row["PKEY"].ToString()_@row["SKEY"].ToString()">～@strLoadData～</a></p>
+                </td>
+            </tr>
+        </table>
+
+    }
+
+}
