@@ -105,7 +105,6 @@
     <Compile Include="BASE\AUTH.cs" />
     <Compile Include="BASE\Central.cs" />
     <Compile Include="BASE\HTML.cs" />
-    <Compile Include="BASE\Json.cs" />
     <Compile Include="BASE\Logger.cs" />
     <Compile Include="BASE\DataControl.cs" />
     <Compile Include="BASE\FileDirector.cs" />

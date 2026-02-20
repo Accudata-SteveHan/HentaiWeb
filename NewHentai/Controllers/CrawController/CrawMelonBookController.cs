@@ -315,7 +315,7 @@ SELECT * FROM ITEM_TAG
             string key = "";
             string subId = "";
             DataTable dataStatus = null;
-            Json result = new Json();
+            //Json result = new Json();
 
             try
             {
@@ -677,7 +677,7 @@ SELECT * FROM ITEM_TAG
         {
             string id = "";
             string part = "";
-            Json jsonObject = new Json();
+            //Json jsonObject = new Json();
             DataTable dataStatus = null;
 
             try

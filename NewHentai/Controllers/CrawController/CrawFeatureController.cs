@@ -398,7 +398,7 @@ namespace NewHentai.Controllers
 
             }
 
-            Json json = new Json();
+            //Json json = new Json();
 
             DataRow webRow = dataWeb.Rows[0];
 
@@ -421,7 +421,7 @@ namespace NewHentai.Controllers
             //
             foreach (DataRow groupRow in this.GetGroupSummaryData().Rows)
             {
-                Json jsonObject = new Json();
+                //Json jsonObject = new Json();
                 int doPage = int.Parse(groupRow["GROUP_ID"].ToString()) * 10000 + int.Parse(procPage);
                 //url = string.Format(pathPattern, procPage);
                 //

@@ -9,10 +9,10 @@ namespace HentaiCore {
     public class Central {
 
         //String
-        public static string UserName = "";
-        public static string Password = "";
-        public static string AppCode = "";
-        public static string MainUrl = "";
+        //public static string UserName = "";
+        //public static string Password = "";
+        //public static string AppCode = "";
+        //public static string MainUrl = "";
 
         //Object
         public static Logger logger = null;
@@ -59,7 +59,6 @@ namespace HentaiCore {
             ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
 
         }
-
 
         public static Logger.Level GetLevel(string key) {
             return

@@ -51,32 +51,32 @@ namespace HentaiCore
 
         }
 
-        public DataTable GetData(string webApiPath, string sql)
-        {
-            Json paramJson = new Json();
-            paramJson.Add("COMMAND", sql);
+        //public DataTable GetData(string webApiPath, string sql)
+        //{
+        //    Json paramJson = new Json();
+        //    paramJson.Add("COMMAND", sql);
 
-            Uri url = new Uri(webApiPath);
+        //    Uri url = new Uri(webApiPath);
 
-            if (HentaiCore.Central.logger == null)
-            {
-                HentaiCore.Logger logger = new HentaiCore.Logger(HentaiCore.Logger.Level.Critical);
-                HentaiCore.Central.logger = logger;
+        //    if (HentaiCore.Central.logger == null)
+        //    {
+        //        HentaiCore.Logger logger = new HentaiCore.Logger(HentaiCore.Logger.Level.Critical);
+        //        HentaiCore.Central.logger = logger;
 
-            }
+        //    }
 
-            HentaiCore.HTML html = new HentaiCore.HTML(url.ToString());
-            html.postData = Encoding.UTF8.GetBytes(paramJson.ToString());
+        //    HentaiCore.HTML html = new HentaiCore.HTML(url.ToString());
+        //    html.postData = Encoding.UTF8.GetBytes(paramJson.ToString());
 
-            html.GetJson();
-            string result = html.webHtml;
+        //    html.GetJson();
+        //    string result = html.webHtml;
 
-            DataTable data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataTable>(result);
-            data.AcceptChanges();
+        //    DataTable data = Newtonsoft.Json.JsonConvert.DeserializeObject<DataTable>(result);
+        //    data.AcceptChanges();
 
-            return data;
+        //    return data;
 
-        }
+        //}
 
         public void UploadData(DataTable data, string destTable, string[] keys)
         {
@@ -225,152 +225,152 @@ namespace HentaiCore
 
         }
 
-        public void UploadData(string webApiPathQuery, string webApiPathUpdate, DataTable data, string destTable, string[] keys)
-        {
-            string select = "SELECT * FROM {0} WHERE 1 = 2";
-            string insert = "INSERT INTO {0} ({1}) VALUES ({2});";
-            string update = "UPDATE {0} SET {1} WHERE {2}";
-            string delete = "DELETE FROM {0} WHERE {1};";
+        //public void UploadData(string webApiPathQuery, string webApiPathUpdate, DataTable data, string destTable, string[] keys)
+        //{
+        //    string select = "SELECT * FROM {0} WHERE 1 = 2";
+        //    string insert = "INSERT INTO {0} ({1}) VALUES ({2});";
+        //    string update = "UPDATE {0} SET {1} WHERE {2}";
+        //    string delete = "DELETE FROM {0} WHERE {1};";
 
-            try
-            {
-                List<string> sqlList = new List<string>();
+        //    try
+        //    {
+        //        List<string> sqlList = new List<string>();
 
-                DataTable emptyTable = this.GetData(webApiPathQuery, string.Format(select, destTable));
+        //        DataTable emptyTable = this.GetData(webApiPathQuery, string.Format(select, destTable));
 
-                foreach (DataRow row in data.Rows)
-                {
-                    string sqlStr = "";
+        //        foreach (DataRow row in data.Rows)
+        //        {
+        //            string sqlStr = "";
 
-                    #region Added
-                    if (row.RowState == DataRowState.Added)
-                    {
-                        sqlStr = insert;
+        //            #region Added
+        //            if (row.RowState == DataRowState.Added)
+        //            {
+        //                sqlStr = insert;
 
-                        string sqlColStr = "", sqlValStr = "";
-                        foreach (DataColumn col in data.Columns)
-                        {
-                            if (emptyTable.Columns.IndexOf(col.ColumnName) < 0)
-                            {
-                                continue;
+        //                string sqlColStr = "", sqlValStr = "";
+        //                foreach (DataColumn col in data.Columns)
+        //                {
+        //                    if (emptyTable.Columns.IndexOf(col.ColumnName) < 0)
+        //                    {
+        //                        continue;
 
-                            }
+        //                    }
 
-                            sqlColStr += (sqlColStr != "" ? "," : "") + string.Format("[{0}]", col.ColumnName);
+        //                    sqlColStr += (sqlColStr != "" ? "," : "") + string.Format("[{0}]", col.ColumnName);
 
-                            if (col.DataType == typeof(string) || col.DataType == typeof(String))
-                            {
-                                sqlValStr += (sqlValStr != "" ? "," : "") + string.Format("N'{0}'", row[col.ColumnName]);
+        //                    if (col.DataType == typeof(string) || col.DataType == typeof(String))
+        //                    {
+        //                        sqlValStr += (sqlValStr != "" ? "," : "") + string.Format("N'{0}'", row[col.ColumnName]);
 
-                            }
-                            else if (col.DataType != typeof(DateTime))
-                            {
-                                sqlValStr += (sqlValStr != "" ? "," : "") + string.Format("'{0}'", row[col.ColumnName]);
+        //                    }
+        //                    else if (col.DataType != typeof(DateTime))
+        //                    {
+        //                        sqlValStr += (sqlValStr != "" ? "," : "") + string.Format("'{0}'", row[col.ColumnName]);
 
-                            }
-                            else
-                            {
-                                sqlValStr += (sqlValStr != "" ? "," : "") + string.Format("'{0}'", DateTime.Parse(row[col.ColumnName].ToString()).ToString("yyyy-MM-dd HH:mm:ss"));
+        //                    }
+        //                    else
+        //                    {
+        //                        sqlValStr += (sqlValStr != "" ? "," : "") + string.Format("'{0}'", DateTime.Parse(row[col.ColumnName].ToString()).ToString("yyyy-MM-dd HH:mm:ss"));
 
-                            }
+        //                    }
 
-                        }
+        //                }
 
-                        sqlStr = string.Format(sqlStr, destTable, sqlColStr, sqlValStr);
-                        sqlList.Add(sqlStr);
+        //                sqlStr = string.Format(sqlStr, destTable, sqlColStr, sqlValStr);
+        //                sqlList.Add(sqlStr);
 
-                    }
+        //            }
 
-                    #endregion Added
+        //            #endregion Added
 
-                    #region Modified
-                    if (row.RowState == DataRowState.Modified)
-                    {
-                        sqlStr = update;
+        //            #region Modified
+        //            if (row.RowState == DataRowState.Modified)
+        //            {
+        //                sqlStr = update;
 
-                        string updateColStr = "";
-                        foreach (DataColumn col in data.Columns)
-                        {
-                            if (emptyTable.Columns.IndexOf(col.ColumnName) < 0)
-                            {
-                                continue;
+        //                string updateColStr = "";
+        //                foreach (DataColumn col in data.Columns)
+        //                {
+        //                    if (emptyTable.Columns.IndexOf(col.ColumnName) < 0)
+        //                    {
+        //                        continue;
 
-                            }
+        //                    }
 
-                            if (col.DataType == typeof(string) || col.DataType == typeof(String))
-                            {
-                                updateColStr +=
-                                (updateColStr != "" ? "," : "") +
-                                string.Format("[{0}] = N'{1}'", col.ColumnName, row[col.ColumnName]);
+        //                    if (col.DataType == typeof(string) || col.DataType == typeof(String))
+        //                    {
+        //                        updateColStr +=
+        //                        (updateColStr != "" ? "," : "") +
+        //                        string.Format("[{0}] = N'{1}'", col.ColumnName, row[col.ColumnName]);
 
-                            }
-                            else if (col.DataType != typeof(DateTime))
-                            {
-                                updateColStr +=
-                                (updateColStr != "" ? "," : "") +
-                                string.Format("[{0}] = '{1}'", col.ColumnName, row[col.ColumnName]);
+        //                    }
+        //                    else if (col.DataType != typeof(DateTime))
+        //                    {
+        //                        updateColStr +=
+        //                        (updateColStr != "" ? "," : "") +
+        //                        string.Format("[{0}] = '{1}'", col.ColumnName, row[col.ColumnName]);
 
-                            }
-                            else
-                            {
-                                updateColStr +=
-                                (updateColStr != "" ? "," : "") +
-                                string.Format("[{0}] = '{1}'", col.ColumnName, DateTime.Parse(row[col.ColumnName].ToString()).ToString("yyyy-MM-dd HH:mm:ss"));
+        //                    }
+        //                    else
+        //                    {
+        //                        updateColStr +=
+        //                        (updateColStr != "" ? "," : "") +
+        //                        string.Format("[{0}] = '{1}'", col.ColumnName, DateTime.Parse(row[col.ColumnName].ToString()).ToString("yyyy-MM-dd HH:mm:ss"));
 
-                            }
+        //                    }
 
-                        }
+        //                }
 
-                        string updateWhereStr = "";
-                        foreach (string key in keys)
-                        {
-                            updateWhereStr +=
-                                (updateWhereStr != "" ? " AND " : "") +
-                                string.Format("{0} = '{1}'", key, row[key]);
+        //                string updateWhereStr = "";
+        //                foreach (string key in keys)
+        //                {
+        //                    updateWhereStr +=
+        //                        (updateWhereStr != "" ? " AND " : "") +
+        //                        string.Format("{0} = '{1}'", key, row[key]);
 
-                        }
+        //                }
 
-                        sqlStr = string.Format(sqlStr, destTable, updateColStr, updateWhereStr);
-                        sqlList.Add(sqlStr);
+        //                sqlStr = string.Format(sqlStr, destTable, updateColStr, updateWhereStr);
+        //                sqlList.Add(sqlStr);
 
-                    }
+        //            }
 
-                    #endregion Modified
+        //            #endregion Modified
 
-                    #region Deleted
-                    if (row.RowState == DataRowState.Deleted)
-                    {
-                        sqlStr = delete;
-                        row.RejectChanges();
-                        string updateWhereStr = "";
-                        foreach (string key in keys)
-                        {
-                            updateWhereStr +=
-                                (updateWhereStr != "" ? " AND " : "") +
-                                string.Format("[{0}] = '{1}'", key, row[key]);
+        //            #region Deleted
+        //            if (row.RowState == DataRowState.Deleted)
+        //            {
+        //                sqlStr = delete;
+        //                row.RejectChanges();
+        //                string updateWhereStr = "";
+        //                foreach (string key in keys)
+        //                {
+        //                    updateWhereStr +=
+        //                        (updateWhereStr != "" ? " AND " : "") +
+        //                        string.Format("[{0}] = '{1}'", key, row[key]);
 
-                        }
+        //                }
 
-                        sqlStr = string.Format(sqlStr, destTable, updateWhereStr);
-                        sqlList.Add(sqlStr);
-                        row.Delete();
+        //                sqlStr = string.Format(sqlStr, destTable, updateWhereStr);
+        //                sqlList.Add(sqlStr);
+        //                row.Delete();
 
-                    }
+        //            }
 
-                    #endregion Deleted
+        //            #endregion Deleted
 
-                }
+        //        }
 
-                this.UploadData(webApiPathUpdate, sqlList.ToArray());
+        //        this.UploadData(webApiPathUpdate, sqlList.ToArray());
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
 
-            }
+        //    }
 
-        }
+        //}
 
         public int UploadData(string[] sqls)
         {
@@ -428,28 +428,28 @@ namespace HentaiCore
 
         }
 
-        public void UploadData(string webApiPath, string[] sqls)
-        {
-            Json paramJson = new Json();
-            paramJson.Add("COMMAND", Newtonsoft.Json.JsonConvert.SerializeObject(sqls));
+        //public void UploadData(string webApiPath, string[] sqls)
+        //{
+        //    Json paramJson = new Json();
+        //    paramJson.Add("COMMAND", Newtonsoft.Json.JsonConvert.SerializeObject(sqls));
 
-            Uri url = new Uri(webApiPath);
+        //    Uri url = new Uri(webApiPath);
 
-            if (HentaiCore.Central.logger == null)
-            {
-                HentaiCore.Logger logger = new HentaiCore.Logger(HentaiCore.Logger.Level.Critical);
-                HentaiCore.Central.logger = logger;
+        //    if (HentaiCore.Central.logger == null)
+        //    {
+        //        HentaiCore.Logger logger = new HentaiCore.Logger(HentaiCore.Logger.Level.Critical);
+        //        HentaiCore.Central.logger = logger;
 
-            }
+        //    }
 
-            HentaiCore.HTML html = new HentaiCore.HTML(url.ToString());
-            html.postData = Encoding.UTF8.GetBytes(paramJson.ToString());
+        //    HentaiCore.HTML html = new HentaiCore.HTML(url.ToString());
+        //    html.postData = Encoding.UTF8.GetBytes(paramJson.ToString());
 
-            html.GetJson();
-            string result = html.webHtml;
+        //    html.GetJson();
+        //    string result = html.webHtml;
 
 
-        }
+        //}
 
     }
 

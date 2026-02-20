@@ -814,7 +814,7 @@ namespace NewHentai.Controllers
                 DataTable dataExHentaiDetail = this.GetGalleryBookData(pKey, sKey);
                 DataTable dataExHentaiPic = this.GetDataExHentaiPic(pKey, sKey);
 
-                Json jsonObject = new Json();
+                //Json jsonObject = new Json();
 
                 string baseUrl = "https://exhentai.org";
                 string url = "https://exhentai.org/g/{0}/{1}/";
@@ -867,7 +867,7 @@ namespace NewHentai.Controllers
                         obj.Add("SKEY", sKey);
                         obj.Add("PAGE", page);
 
-                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+                        //jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
 
                     }
                     else
@@ -880,7 +880,7 @@ namespace NewHentai.Controllers
                         obj.Add("SKEY", sKey);
                         obj.Add("PAGE", page);
 
-                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+                        //jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
 
                     }
 
@@ -900,7 +900,7 @@ namespace NewHentai.Controllers
                 this.UpdateDataExHentaiPic(dataExHentaiPic);
                 this.UpdateObject(dataObject);
 
-                ViewData["DATA"] = jsonObject.ToString();
+                //ViewData["DATA"] = jsonObject.ToString();
 
             }
             catch (Exception ex)
@@ -946,7 +946,7 @@ namespace NewHentai.Controllers
                 DataTable dataExHentaiDetail = this.GetGalleryBookData(pKey, sKey);
                 DataTable dataExHentaiPic = this.GetDataExHentaiPic(pKey, sKey);
 
-                Json jsonObject = new Json();
+                //Json jsonObject = new Json();
 
                 string baseUrl = "https://exhentai.org";
                 string url = "https://exhentai.org/g/{0}/{1}/";
@@ -1001,7 +1001,7 @@ namespace NewHentai.Controllers
                         obj.Add("SKEY", sKey);
                         obj.Add("PAGE", page);
 
-                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+                        //jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
 
                     }
                     else
@@ -1014,7 +1014,7 @@ namespace NewHentai.Controllers
                         obj.Add("SKEY", sKey);
                         obj.Add("PAGE", page);
 
-                        jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
+                        //jsonObject.Add(string.Format("{0}_{1}_{2}", pKey, sKey, page), obj);
 
                     }
 
@@ -1034,7 +1034,7 @@ namespace NewHentai.Controllers
                 this.UpdateDataExHentaiPic(dataExHentaiPic);
                 this.UpdateObject(dataObject);
 
-                ViewData["DATA"] = jsonObject.ToString();
+                //ViewData["DATA"] = jsonObject.ToString();
 
             }
             catch (Exception ex)
@@ -1294,7 +1294,6 @@ namespace NewHentai.Controllers
 
     }
 
-
     public class SITE_INFO
     {
         public string host = "";
@@ -1315,7 +1314,6 @@ namespace NewHentai.Controllers
         }
 
     }
-
 
     public class PAGE_INFO
     {

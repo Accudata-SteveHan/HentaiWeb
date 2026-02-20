@@ -177,9 +177,7 @@
     <Compile Include="Controllers\BrowseController\ViewPage.cs" />
     <Compile Include="Controllers\CrawController.cs" />
     <Compile Include="Controllers\CrawController\CrawDoujinshiController.cs" />
-    <Compile Include="Controllers\CrawController\CrawFeatureController.cs" />
     <Compile Include="Controllers\CrawController\CrawMangaController.cs" />
-    <Compile Include="Controllers\CrawController\CrawMelonBookController.cs" />
     <Compile Include="Controllers\CrawController\CrawNonHController.cs" />
     <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\GalleryController\Data.cs" />
